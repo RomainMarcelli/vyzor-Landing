@@ -333,7 +333,7 @@ const BetaForm = ({ variant = "dark" }) => {
 const VyzorNav = ({ gold, text, muted, subtle }) => {
   const items = [
     { id: "produit", label: "Le produit" },
-    { id: "calculateurs", label: "Calculateurs", href: "VYZOR Calculateurs.html", external: true },
+    { id: "calculateurs", label: "Calculateurs", href: "calculateurs.html", external: true },
   ];
   const [active, setActive] = React.useState("produit");
   const [scrolled, setScrolled] = React.useState(false);

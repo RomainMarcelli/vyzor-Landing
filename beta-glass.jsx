@@ -201,13 +201,45 @@ const BetaTiltCard = ({
 
 const BetaModal = ({ open, onClose }) => {
   const [submitted, setSubmitted] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [error, setError] = React.useState(null);
   const muted = "rgba(255,255,255,0.55)";
   const labelMuted = "rgba(255,255,255,0.6)";
   const inputBg = "rgba(255,255,255,0.04)";
   const inputBorder = "rgba(255,255,255,0.10)";
 
+  const WEB3FORMS_KEY = "9f003436-eba6-4543-b3ed-06c89a38a69c";
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (submitting) return;
+    setError(null);
+    setSubmitting(true);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    fd.append("access_key", WEB3FORMS_KEY);
+    fd.append("subject", "Nouvelle candidature bêta — Vyzor");
+    fd.append("from_name", "Vyzor — Bêta");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: fd,
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || "Une erreur est survenue. Réessayez dans un instant.");
+      }
+    } catch (err) {
+      setError("Connexion impossible. Vérifiez votre réseau et réessayez.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   React.useEffect(() => {
-    if (!open) { setSubmitted(false); return; }
+    if (!open) { setSubmitted(false); setError(null); setSubmitting(false); return; }
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -241,23 +273,34 @@ const BetaModal = ({ open, onClose }) => {
               Réponse sous 48h. Aucun engagement.
             </p>
             <form
-              onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+              onSubmit={handleSubmit}
               style={{ display: "flex", flexDirection: "column", gap: 14 }}
             >
+              {/* Honeypot Web3Forms — anti-spam */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                aria-hidden="true"
+                style={{ display: "none" }}
+              />
               {[
                 { id: "name", label: "Nom et prénom", placeholder: "Marie Durand", type: "text" },
                 { id: "email", label: "Email pro", placeholder: "marie@entreprise.fr", type: "email" },
                 { id: "company", label: "Entreprise", placeholder: "ACME SAS", type: "text" },
               ].map((f) => (
                 <div key={f.id}>
-                  <label style={{
+                  <label htmlFor={`beta-${f.id}`} style={{
                     display: "block", fontSize: 10, letterSpacing: "0.16em",
                     color: labelMuted, textTransform: "uppercase",
                     marginBottom: 6, fontWeight: 500,
                     fontFamily: "JetBrains Mono, monospace",
                   }}>{f.label}</label>
                   <input
+                    id={`beta-${f.id}`}
+                    name={f.id}
                     type={f.type} required placeholder={f.placeholder}
+                    autoComplete={f.id === "email" ? "email" : f.id === "name" ? "name" : "organization"}
                     style={{
                       width: "100%", padding: "12px 14px", boxSizing: "border-box",
                       background: inputBg, color: "#fff",
@@ -277,17 +320,36 @@ const BetaModal = ({ open, onClose }) => {
                   />
                 </div>
               ))}
-              <button type="submit" style={{
-                width: "100%", padding: "14px",
-                border: "1px solid #f2d782",
-                backgroundImage: "linear-gradient(135deg,#f9e08a 0%, #ebc85b 52%, #d8ac2f 100%)",
-                color: "#1a1410", fontWeight: 600, fontSize: 14, borderRadius: 12, cursor: "pointer",
-                boxShadow: "0 10px 24px rgba(216,172,47,0.32), inset 0 1px 0 rgba(255,255,255,0.5)",
-                letterSpacing: "0.01em",
-                fontFamily: '"Inter", system-ui, sans-serif',
-                marginTop: 4,
-              }}>
-                Envoyer ma candidature →
+              {error && (
+                <div style={{
+                  fontSize: 12.5, color: "#ffb4a8",
+                  background: "rgba(255,99,71,0.08)",
+                  border: "1px solid rgba(255,99,71,0.30)",
+                  padding: "10px 12px", borderRadius: 10,
+                  fontFamily: '"Inter", system-ui, sans-serif',
+                  lineHeight: 1.5,
+                }}>
+                  {error}
+                </div>
+              )}
+              <button
+                type="submit"
+                disabled={submitting}
+                style={{
+                  width: "100%", padding: "14px",
+                  border: "1px solid #f2d782",
+                  backgroundImage: "linear-gradient(135deg,#f9e08a 0%, #ebc85b 52%, #d8ac2f 100%)",
+                  color: "#1a1410", fontWeight: 600, fontSize: 14, borderRadius: 12,
+                  cursor: submitting ? "wait" : "pointer",
+                  opacity: submitting ? 0.7 : 1,
+                  boxShadow: "0 10px 24px rgba(216,172,47,0.32), inset 0 1px 0 rgba(255,255,255,0.5)",
+                  letterSpacing: "0.01em",
+                  fontFamily: '"Inter", system-ui, sans-serif',
+                  marginTop: 4,
+                  transition: "opacity 200ms",
+                }}
+              >
+                {submitting ? "Envoi en cours…" : "Envoyer ma candidature →"}
               </button>
               <div style={{ fontSize: 11, color: muted, textAlign: "center", marginTop: 2 }}>
                 En soumettant, vous acceptez d'être recontacté à l'email indiqué.

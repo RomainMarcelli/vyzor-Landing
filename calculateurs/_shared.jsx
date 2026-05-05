@@ -163,8 +163,8 @@ function VyzorTopNav({ current = "hub" }) {
   }, []);
 
   const items = [
-    { id: "produit", label: "Le produit", href: "../VYZOR Landing - Liquid Glass.html#produit" },
-    { id: "hub", label: "Calculateurs", href: "../VYZOR Calculateurs.html" },
+    { id: "produit", label: "Le produit", href: "../index.html#produit" },
+    { id: "hub", label: "Calculateurs", href: "../calculateurs.html" },
   ];
   const goldGrad = `linear-gradient(135deg, ${T.brandGold} 0%, ${T.brandGoldDark} 100%)`;
 
@@ -185,7 +185,7 @@ function VyzorTopNav({ current = "hub" }) {
         boxShadow: "0 16px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.3)",
         transition: "all 320ms cubic-bezier(0.22,1,0.36,1)",
       }}>
-        <a href="../VYZOR Landing - Liquid Glass.html" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", paddingRight: 4 }}>
+        <a href="../index.html" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", paddingRight: 4 }}>
           <div style={{
             width: 26, height: 26, borderRadius: 8,
             background: goldGrad,
@@ -235,7 +235,7 @@ function VyzorTopNav({ current = "hub" }) {
           width: 1, height: 18, background: "rgba(255,255,255,0.10)",
         }}/>
 
-        <a href="../VYZOR Landing - Liquid Glass.html?contact=1#beta" data-contact style={{
+        <a href="../index.html?contact=1#beta" data-contact style={{
           padding: "8px 14px",
           fontSize: 12.5,
           fontWeight: 600,
@@ -406,7 +406,7 @@ function EmailGate({ onSubmit, icon = "lock", title = "Débloquez votre analyse"
         <h3 style={{ color: T.textPrimary, fontSize: 22, fontWeight: 700, marginBottom: 8, fontFamily: T.sans }}>{title}</h3>
         <p style={{ color: T.textMuted, fontSize: 14, marginBottom: 24, lineHeight: 1.6, fontFamily: T.sans }}>{desc}</p>
         <a
-          href="../VYZOR Landing - Liquid Glass.html?contact=1#beta"
+          href="../index.html?contact=1#beta"
           data-contact
           style={{
             display: "inline-block", width: "100%", padding: "14px 24px",
@@ -448,7 +448,7 @@ function CtaFooter() {
           VYZOR transforme vos données en dashboards actionnables.
           Fini les tableurs — bienvenue dans le pilotage intelligent.
         </p>
-        <a href="../VYZOR Landing - Liquid Glass.html?contact=1#beta" data-contact style={{
+        <a href="../index.html?contact=1#beta" data-contact style={{
           display: "inline-block", position: "relative", zIndex: 1,
           padding: "16px 44px", background: goldGradient, color: "#000",
           border: "1px solid rgba(255,255,255,0.30)", borderRadius: 12, fontSize: 16, fontWeight: 700,
@@ -459,7 +459,7 @@ function CtaFooter() {
       </div>
       <div style={{ textAlign: "center", color: T.textMuted, fontSize: 12, paddingBottom: 32 }}>
         © 2026 VYZOR SAS — Pilotage intelligent pour décideurs exigeants ·{" "}
-        <a href="../VYZOR Calculateurs.html" style={{ color: T.brandGold, textDecoration: "none" }}>← Tous les calculateurs</a>
+        <a href="../calculateurs.html" style={{ color: T.brandGold, textDecoration: "none" }}>← Tous les calculateurs</a>
       </div>
     </React.Fragment>
   );
