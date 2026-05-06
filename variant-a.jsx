@@ -526,12 +526,39 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
     },
   ];
 
-  const [active, setActive] = React.useState(1);
+  const [active, setActive] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
   const goldGrad = "linear-gradient(135deg,#f9e08a 0%, #ebc85b 52%, #d8ac2f 100%)";
   const cur = steps[active];
 
+  // Auto-advance through the three steps; pause on hover/focus or after a manual click.
+  const sectionRef = React.useRef(null);
+  const resumeTimer = React.useRef(null);
+  React.useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      setActive((i) => (i + 1) % steps.length);
+    }, 4200);
+    return () => clearInterval(id);
+  }, [paused, steps.length]);
+
+  const handleManualSelect = (i) => {
+    setActive(i);
+    setPaused(true);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    // Resume the auto-rotation after a short delay so users can read.
+    resumeTimer.current = setTimeout(() => setPaused(false), 9000);
+  };
+
+  React.useEffect(() => () => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+  }, []);
+
   return (
-    <section id={id} style={{ position: "relative", marginBottom: 112 }}>
+    <section id={id} ref={sectionRef} style={{ position: "relative", marginBottom: 112 }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       {/* Header — editorial, asymmetric */}
       <div style={{
         display: "grid", gridTemplateColumns: "1fr auto", alignItems: "end",
@@ -577,7 +604,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
           return (
             <button
               key={s.idx}
-              onClick={() => setActive(i)}
+              onClick={() => handleManualSelect(i)}
               style={{
                 position: "relative", zIndex: 2,
                 background: "transparent", border: "none", cursor: "pointer",

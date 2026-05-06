@@ -220,32 +220,32 @@
 // ───────────────────────────────────────────────────────────────────
 const FEATURES_BY_ROLE = {
   comptable: {
-    label: "Comptable",
+    label: "Expert-Comptable",
     sub: "Cabinet d'expertise",
-    headline: "Un cockpit pour vos clients,",
-    accent: "qui parle leur langue.",
+    headline: "Un diagnostic client,",
+    accent: "livré en moins de 5 minutes.",
     intro:
-      "Importez le FEC, livrez un diagnostic financier en français en moins de 5 minutes. Vyzor fait le pont entre vos écritures et la décision du dirigeant.",
+      "Connectez Pennylane, MyUnisoft ou Odoo — ou importez un FEC. Vyzor calcule le Quantis Score, génère le plan d'action et vous donne une vue cabinet sur tous vos dossiers.",
     items: [
       {
-        title: "Import FEC, balance, grand livre — auto-détecté",
-        sub: "Sage, Cegid, Pennylane, EBP, ACD : Vyzor reconnaît le schéma et valide la cohérence des écritures.",
+        title: "Multi-dossiers, vue cabinet consolidée",
+        sub: "Tous vos clients, leur Quantis Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic.",
       },
       {
-        title: "Diagnostic financier en français, prêt à livrer",
-        sub: "24 ratios calculés, lus et commentés. Une narration claire, sans jargon, à transmettre tel quel à votre client.",
+        title: "Connexion comptable native ou import FEC/PDF",
+        sub: "Pennylane, MyUnisoft, Odoo en automatique. Tiime arrive bientôt. Sinon, FEC ou PDF : le parser V2 fait le reste.",
       },
       {
-        title: "Multi-dossiers, multi-exercices",
-        sub: "Tableau de bord cabinet : tous vos clients, leur Vyzor Score, leurs alertes rouges, sur un seul écran.",
+        title: "États financiers détaillés, lignes comptables",
+        sub: "Compte de résultat et bilan complets avec références FP, FQ, GA. La granularité dont vous avez besoin pour vérifier.",
       },
       {
-        title: "Export PDF white-label conseil d'administration",
-        sub: "Un rapport prêt en 90 secondes, à votre marque, signé de votre cabinet.",
+        title: "Alertes proactives par dossier",
+        sub: "EBE négatif, DSO qui dérape, runway critique : Vyzor remonte ce qui doit déclencher un appel à votre client.",
       },
       {
-        title: "Alertes secteur calibrées",
-        sub: "Seuils de référence par code APE. BFR de 42 jours sur l'industrie n'a pas le même sens que sur le négoce.",
+        title: "Assistant IA pour diagnostic rapide",
+        sub: "« Pourquoi l'EBITDA est-il négatif ce trimestre ? » — réponse contextualisée sur les chiffres du dossier ouvert.",
       },
     ],
   },
@@ -255,27 +255,27 @@ const FEATURES_BY_ROLE = {
     headline: "Le pilotage qu'on vous demandait,",
     accent: "sans le tableur du dimanche.",
     intro:
-      "Du reporting consolidé à la projection 90 jours en trois scénarios. Vyzor remplace le pack Excel par un cockpit lisible, à partager.",
+      "Tableaux de bord personnalisables, simulation What-If sur 7 scénarios, données live Pennylane synchronisées en continu. Le pack Excel devient un cockpit partageable.",
     items: [
       {
-        title: "Vyzor Score consolidé sur 6 dimensions clés",
-        sub: "Trésorerie, marge, BFR, endettement, croissance, rentabilité : un score sur 100, des sous-scores parlants.",
+        title: "Tableaux de bord personnalisables",
+        sub: "Création de valeur, investissement, financement, rentabilité, trésorerie — ou vos propres onglets. Drag & drop des widgets, choix du type de visualisation.",
       },
       {
-        title: "Projection 90 jours · 3 scénarios paramétrables",
-        sub: "Prudent, médian, optimiste. Faites varier l'encaissement client, les délais fournisseurs, les charges fixes.",
+        title: "Simulation What-If sur 7 scénarios",
+        sub: "Embauche, hausse des prix, nouvel emprunt, perte d'un client majeur. Slider -30 % à +30 %, impact temps réel sur EBITDA, point mort, CAF, masse salariale.",
       },
       {
-        title: "Simulation d'impact en un clic",
-        sub: "« Si je perds mon premier client » — Vyzor recalcule trésorerie, BFR et marge sur les 90 prochains jours.",
+        title: "Données live Pennylane, synchronisées en continu",
+        sub: "Sélecteur jour / semaine / mois / trimestre / année. Indicateur de sync, nombre d'écritures sur la période. Plus de gel à fin de mois.",
       },
       {
-        title: "Alertes triées par impact estimé en €",
-        sub: "Plus de listes à perte de vue. Les 5 actions qui pèsent le plus, chiffrées, datées, attribuables.",
+        title: "Bibliothèque complète de KPIs financiers",
+        sub: "BFR, DSO, DPO, DIO, gearing, capacité de remboursement, runway, liquidité générale / réduite / immédiate. Tout est calculé, tout est filtrable.",
       },
       {
-        title: "Export PDF prêt pour conseil d'administration",
-        sub: "Une lecture digne d'un DAF, en 90 secondes. Vous validez le narratif, Vyzor met en page.",
+        title: "Recommandation stratégique IA + plan d'action",
+        sub: "L'agent Quantis génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez.",
       },
     ],
   },
@@ -285,27 +285,27 @@ const FEATURES_BY_ROLE = {
     headline: "Vos chiffres, expliqués.",
     accent: "Vos décisions, éclairées.",
     intro:
-      "Pas de jargon. Pas de tableau croisé. Un Vyzor Score, trois temps de lecture (passé, présent, futur) et les 5 actions qui comptent vraiment pour les 90 prochains jours.",
+      "Un Quantis Score lisible en 10 secondes, des alertes qui appellent à l'action, un assistant IA qui répond en français à vos questions business. Pas de jargon, pas de tableau croisé.",
     items: [
       {
-        title: "Vyzor Score sur 100, lisible en 10 secondes",
-        sub: "Une note unique, comme une santé bancaire. Les zones rouges sautent aux yeux, les vertes vous rassurent.",
+        title: "Quantis Score sur 100, santé en un coup d'œil",
+        sub: "Rentabilité, solvabilité, liquidité, efficacité — quatre sous-scores et un commentaire synthétique. Excellent, bon, moyen, faible : vous savez où vous en êtes.",
       },
       {
-        title: "Trois temps : passé, présent, futur",
-        sub: "Ce qui s'est passé, où vous en êtes, ce qui vous attend dans 90 jours. Une seule lecture, trois horizons.",
+        title: "Simulation What-If pour vos décisions stratégiques",
+        sub: "« Et si j'embauche ? » « Et si je perds mon plus gros client ? » Sept scénarios, slider de variation, impact immédiat sur 6 KPIs clés.",
       },
       {
-        title: "5 actions prioritaires, chiffrées en euros",
-        sub: "Pas une liste de 30 recommandations. Les cinq leviers qui changent le plus votre trésorerie ce trimestre.",
+        title: "Assistant IA en français, 20 questions / jour",
+        sub: "Posez la question business du jour : leviers BFR, hausse de prix, comparaison vs an dernier. Réponse contextualisée sur vos chiffres réels.",
       },
       {
-        title: "Calculateurs intégrés : BFR, valorisation, marge",
-        sub: "Les questions qu'on se pose vraiment : combien je vaux ? combien je peux investir ? combien je dois encaisser ce mois-ci ?",
+        title: "Alertes critiques + plan d'action IA",
+        sub: "EBE négatif, trésorerie tendue : Vyzor remonte les risques et propose les actions concrètes à lancer ce mois-ci, priorisées et chiffrées.",
       },
       {
-        title: "Vos données restent les vôtres",
-        sub: "Hébergement français, chiffrement bout-en-bout, suppression en un clic. Aucune revente, aucune ambiguïté.",
+        title: "Cash temps réel via connexion bancaire",
+        sub: "Open Banking PSD2 via Bridge : trésorerie nette, burn rate, runway. Vous voyez vivre votre cash, pas une photo d'il y a trois mois.",
       },
     ],
   },
