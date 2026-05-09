@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Calculateurs financiers — indexation prioritaire
+Allow: /calculateurs/
+Allow: /calculateurs/bfr.html
+Allow: /calculateurs/breakeven.html
+Allow: /calculateurs/fiscal.html
+Allow: /calculateurs/reporting.html
+Allow: /calculateurs/valorisation.html
+
+# Fichiers techniques à exclure
+Disallow: /scraps/
+Disallow: /uploads/
+Disallow: /*.jsx$
+
+Sitemap: https://vyzor.fr/sitemap.xml
