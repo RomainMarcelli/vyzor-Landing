@@ -259,7 +259,7 @@ const BetaModal = ({ open, onClose }) => {
         {!submitted ? (
           <React.Fragment>
             <h3 style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
               fontWeight: 400,
               fontSize: 30,
               letterSpacing: "-0.015em",
@@ -294,7 +294,7 @@ const BetaModal = ({ open, onClose }) => {
                     display: "block", fontSize: 10, letterSpacing: "0.16em",
                     color: labelMuted, textTransform: "uppercase",
                     marginBottom: 6, fontWeight: 500,
-                    fontFamily: "JetBrains Mono, monospace",
+                    fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
                   }}>{f.label}</label>
                   <input
                     id={`beta-${f.id}`}
@@ -306,7 +306,7 @@ const BetaModal = ({ open, onClose }) => {
                       background: inputBg, color: "#fff",
                       border: `1px solid ${inputBorder}`, borderRadius: 10,
                       fontSize: 14, outline: "none",
-                      fontFamily: '"Inter", system-ui, sans-serif',
+                      fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
                       transition: "border-color 200ms, background 200ms",
                     }}
                     onFocus={(e) => {
@@ -326,7 +326,7 @@ const BetaModal = ({ open, onClose }) => {
                   background: "rgba(255,99,71,0.08)",
                   border: "1px solid rgba(255,99,71,0.30)",
                   padding: "10px 12px", borderRadius: 10,
-                  fontFamily: '"Inter", system-ui, sans-serif',
+                  fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
                   lineHeight: 1.5,
                 }}>
                   {error}
@@ -344,7 +344,7 @@ const BetaModal = ({ open, onClose }) => {
                   opacity: submitting ? 0.7 : 1,
                   boxShadow: "0 10px 24px rgba(216,172,47,0.32), inset 0 1px 0 rgba(255,255,255,0.5)",
                   letterSpacing: "0.01em",
-                  fontFamily: '"Inter", system-ui, sans-serif',
+                  fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
                   marginTop: 4,
                   transition: "opacity 200ms",
                 }}
@@ -369,7 +369,7 @@ const BetaModal = ({ open, onClose }) => {
               fontSize: 26, color: "#7eead8",
             }}>✓</div>
             <h3 style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
               fontWeight: 400, fontSize: 26, margin: 0, color: "#fff",
               letterSpacing: "-0.01em",
             }}>
@@ -383,7 +383,7 @@ const BetaModal = ({ open, onClose }) => {
               background: "rgba(255,255,255,0.06)",
               border: "1px solid rgba(255,255,255,0.14)",
               color: "#fff", borderRadius: 10, cursor: "pointer",
-              fontSize: 13, fontFamily: '"Inter", system-ui, sans-serif',
+              fontSize: 13, fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
             }}>
               Fermer
             </button>
@@ -468,7 +468,7 @@ const BetaFormGlass = () => {
       }}>
         <div>
           <h2 style={{
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
             fontSize: "clamp(36px, 4.4vw, 56px)",
             margin: 0, letterSpacing: "-0.02em",
             fontWeight: 400, lineHeight: 1.05, maxWidth: 760,
@@ -495,7 +495,7 @@ const BetaFormGlass = () => {
         {/* Carte 1 — Promesse */}
         <BetaTiltCard effect="evade" tiltLimit={9} scale={1.02}>
           <div style={{
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
             fontSize: 26, fontWeight: 400, lineHeight: 1.15,
             letterSpacing: "-0.01em", color: "#fff", marginTop: 6,
           }}>
@@ -511,13 +511,13 @@ const BetaFormGlass = () => {
             paddingTop: 16, borderTop: `1px solid ${inputBorder}`,
           }}>
             <div style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
               fontSize: 56, fontWeight: 700, color: gold,
               lineHeight: 0.9, letterSpacing: "-0.04em",
               fontFeatureSettings: '"tnum" 1, "lnum" 1',
             }}>10</div>
             <div style={{
-              fontFamily: "JetBrains Mono, monospace",
+              fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
               fontSize: 11, letterSpacing: "0.18em", color: muted, textTransform: "uppercase",
             }}>places ouvertes</div>
           </div>
@@ -526,7 +526,7 @@ const BetaFormGlass = () => {
         {/* Carte 2 — Bénéfices */}
         <BetaTiltCard effect="evade" tiltLimit={9} scale={1.02}>
           <div style={{
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
             fontSize: 26, fontWeight: 400, lineHeight: 1.15,
             letterSpacing: "-0.01em", color: "#fff", marginTop: 6,
           }}>
@@ -544,7 +544,7 @@ const BetaFormGlass = () => {
                 borderTop: i === 0 ? "none" : `1px solid ${inputBorder}`,
               }}>
                 <span style={{
-                  fontFamily: "JetBrains Mono, monospace", fontSize: 11,
+                  fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace', fontSize: 11,
                   color: gold, opacity: 0.75, marginTop: 3, minWidth: 20,
                 }}>
                   {String(i + 1).padStart(2, "0")}
@@ -570,7 +570,7 @@ const BetaFormGlass = () => {
             backgroundImage: "linear-gradient(135deg,#f9e08a 0%, #ebc85b 52%, #d8ac2f 100%)",
             color: "#1a1410", fontWeight: 600, fontSize: 15, cursor: "pointer",
             letterSpacing: "0.01em",
-            fontFamily: '"Inter", system-ui, sans-serif',
+            fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
             boxShadow: "0 14px 32px rgba(216,172,47,0.36), inset 0 1px 0 rgba(255,255,255,0.55)",
             transition: "transform 220ms ease, box-shadow 220ms ease",
           }}

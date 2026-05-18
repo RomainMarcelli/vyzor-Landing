@@ -32,7 +32,7 @@ const MockDashboard = ({ skin = "dark", scale = 1 }) => {
       borderRadius: 16,
       padding: 18,
       color: text,
-      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
       boxShadow: dark ? "0 30px 80px -20px rgba(0,0,0,0.6)" : "0 30px 80px -20px rgba(15,23,42,0.18)",
     }}>
       {/* Top bar */}

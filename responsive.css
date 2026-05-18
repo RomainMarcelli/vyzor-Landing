@@ -267,8 +267,49 @@ html, body { -webkit-text-size-adjust: 100%; }
 }
 
 /* ============================================================
+   PERF MOBILE — désactivation des effets coûteux <= 720px
+   ============================================================
+   Cible : backdrop-filter, gros filter:blur, animations décoratives,
+   3D / perspective. Tout est neutralisé pour éviter le jank scroll.
+*/
+@media (max-width: 720px) {
+  /* 1. Tous les backdrop-filter → off (très cher sur GPU mobile) */
+  *,
+  *::before,
+  *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* 2. Filter:blur sur les éléments décoratifs → off */
+  [aria-hidden="true"],
+  [aria-hidden="true"]::before,
+  [aria-hidden="true"]::after {
+    filter: none !important;
+  }
+
+  /* 3. Animations décoratives → off (uniquement sur éléments aria-hidden,
+        on garde les animations utiles comme le pulse status) */
+  [aria-hidden="true"],
+  [aria-hidden="true"] *,
+  [aria-hidden="true"]::before,
+  [aria-hidden="true"]::after {
+    animation: none !important;
+  }
+
+  /* 4. 3D / perspective → flatten pour économiser des composites */
+  [style*="perspective"] {
+    perspective: none !important;
+  }
+
+  /* 5. will-change → auto pour libérer la mémoire GPU */
+  * { will-change: auto !important; }
+}
+
+/* ============================================================
    Petits tweaks transverses
    ============================================================ */
+
 
 /* Empêcher les overflow horizontaux sur les badges, formulaires, etc. */
 @media (max-width: 720px) {

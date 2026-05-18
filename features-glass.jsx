@@ -418,7 +418,7 @@ const FeaturesGlass = () => {
           <h2
             key={`headline-${renderKey}`}
             style={{
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
               fontSize: "clamp(36px, 4.4vw, 56px)",
               margin: 0,
               letterSpacing: "-0.02em",

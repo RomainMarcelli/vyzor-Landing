@@ -2,7 +2,7 @@
 // Reprend la DA cinématique : fond #070a14, accent or #f0c949, surfaces glass,
 // halo refractif, bordures lumineuses, typo Inter + JetBrains Mono.
 
-const VyzorFooterGlass = () => {
+const VyzorFooterGlass = ({ fullWidth = false }) => {
   const gold = "#f0c949";
   const text = "rgba(255,255,255,0.92)";
   const muted = "rgba(255,255,255,0.55)";
@@ -10,8 +10,15 @@ const VyzorFooterGlass = () => {
   const subtle = "rgba(255,255,255,0.08)";
   const cardRef = React.useRef(null);
 
-  // Effet "spotlight" qui suit la souris dans le footer
+  // Effet "spotlight" qui suit la souris dans le footer (desktop uniquement)
   React.useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(hover: none), (pointer: coarse)").matches
+    ) {
+      return; // pas de mousemove sur touch
+    }
     const el = cardRef.current;
     if (!el) return;
     const onMove = (e) => {
@@ -94,9 +101,10 @@ const VyzorFooterGlass = () => {
       ref={cardRef}
       style={{
         position: "relative",
-        marginTop: 96,
-        borderRadius: 28,
+        marginTop: fullWidth ? 0 : 96,
+        borderRadius: fullWidth ? 0 : 28,
         overflow: "hidden",
+        width: "100%",
         // Glass surface
         background:
           "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.01) 100%)",
@@ -104,7 +112,7 @@ const VyzorFooterGlass = () => {
         backdropFilter: "blur(24px) saturate(140%)",
         WebkitBackdropFilter: "blur(24px) saturate(140%)",
         color: text,
-        fontFamily: '"Inter", system-ui, sans-serif',
+        fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
         boxShadow:
           "0 1px 0 rgba(255,255,255,0.06) inset, 0 -1px 0 rgba(255,255,255,0.02) inset, 0 40px 100px -40px rgba(0,0,0,0.6)",
       }}
@@ -159,7 +167,7 @@ const VyzorFooterGlass = () => {
                 color: "#fff",
               }}>VYZOR</div>
               <div style={{
-                fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+                fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
                 fontSize: 10, letterSpacing: "0.22em",
                 color: gold, textTransform: "uppercase", marginTop: 2,
               }}>
@@ -204,7 +212,7 @@ const VyzorFooterGlass = () => {
               boxShadow: `0 0 0 4px rgba(240,201,73,0.18)`,
             }} />
             Rejoindre la bêta
-            <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11, color: faint }}>
+            <span style={{ fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace', fontSize: 11, color: faint }}>
               · 10 places
             </span>
           </a>
@@ -259,7 +267,7 @@ const VyzorFooterGlass = () => {
           {navColumns.map((col) => (
             <div key={col.title}>
               <div style={{
-                fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+                fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
                 fontSize: 10, letterSpacing: "0.22em",
                 color: gold, textTransform: "uppercase",
                 marginBottom: 18,
@@ -337,7 +345,7 @@ const VyzorFooterGlass = () => {
 
         <div style={{
           display: "flex", alignItems: "center", gap: 18,
-          fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+          fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
           fontSize: 11, color: faint, letterSpacing: "0.04em",
         }}>
           <span>© 2026 Vyzor</span>
@@ -392,7 +400,7 @@ const VyzorFooterGlass = () => {
         }}
       >
         <div style={{
-          fontFamily: '"Inter", system-ui, sans-serif',
+          fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
           fontSize: "clamp(120px, 18vw, 240px)",
           fontWeight: 900,
           letterSpacing: "0.04em",

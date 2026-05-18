@@ -26,9 +26,32 @@ const CinematicHero = ({
   const [counter, setCounter] = React.useState(0);
   const [ringDash, setRingDash] = React.useState(402);
 
-  const SCROLL_LEN = 1800;
+  // —— Détection mobile / touch pour court-circuiter les effets coûteux
+  const [isMobile, setIsMobile] = React.useState(false);
+  const isTouchRef = React.useRef(false);
+  React.useEffect(() => {
+    const mql = window.matchMedia("(max-width: 720px)");
+    setIsMobile(mql.matches);
+    const onChange = (e) => setIsMobile(e.matches);
+    mql.addEventListener?.("change", onChange);
+    isTouchRef.current =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    return () => mql.removeEventListener?.("change", onChange);
+  }, []);
+
+  const SCROLL_LEN = isMobile ? 600 : 1800;
 
   React.useEffect(() => {
+    // Pas de 3D tilt / mouse follow sur device touch
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(hover: none), (pointer: coarse)").matches
+    ) {
+      return;
+    }
     const onMove = (e) => {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
@@ -54,7 +77,9 @@ const CinematicHero = ({
   }, []);
 
   React.useEffect(() => {
-    const onScroll = () => {
+    let raf = 0;
+    const compute = () => {
+      raf = 0;
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const total = containerRef.current.offsetHeight - window.innerHeight;
@@ -62,9 +87,16 @@ const CinematicHero = ({
       const p = Math.max(0, Math.min(1, scrolled / total));
       setProgress(p);
     };
-    onScroll();
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(compute);
+    };
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   React.useEffect(() => {
@@ -151,7 +183,7 @@ const CinematicHero = ({
           overflow: "hidden",
           background: "#070a14",
           color: text,
-          fontFamily: '"Inter", system-ui, sans-serif',
+          fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
           perspective: 1500,
         }}
       >
@@ -227,9 +259,9 @@ const CinematicHero = ({
             textAlign: "center", padding: "0 24px",
             opacity: heroAlpha,
             transform: `scale(${heroScale})`,
-            filter: `blur(${heroBlur}px)`,
+            filter: isMobile ? "none" : `blur(${heroBlur}px)`,
             transition: "opacity 80ms linear",
-            willChange: "transform, opacity, filter",
+            willChange: isMobile ? "auto" : "transform, opacity, filter",
           }}
         >
           <h1
@@ -597,9 +629,9 @@ const CinematicHero = ({
             textAlign: "center", padding: "0 24px",
             opacity: ctaIn,
             transform: `scale(${0.85 + ctaIn * 0.15})`,
-            filter: `blur(${(1 - ctaIn) * 16}px)`,
+            filter: isMobile ? "none" : `blur(${(1 - ctaIn) * 16}px)`,
             pointerEvents: ctaIn > 0.5 ? "auto" : "none",
-            willChange: "transform, opacity, filter",
+            willChange: isMobile ? "auto" : "transform, opacity, filter",
           }}
         >
           <h2
@@ -810,7 +842,7 @@ const DashboardMockup = ({ counter, ringDash, metricLabel, gold }) => {
               <div
                 style={{
                   fontSize: 32, fontWeight: 700, color: "#fff",
-                  fontFamily: "ui-monospace, monospace",
+                  fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
                   letterSpacing: "-0.02em", lineHeight: 1,
                 }}
               >
@@ -844,7 +876,7 @@ const DashboardMockup = ({ counter, ringDash, metricLabel, gold }) => {
                 }}
               >
                 <span>{r.l}</span>
-                <span style={{ fontFamily: "ui-monospace, monospace", color: "#fff" }}>
+                <span style={{ fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace', color: "#fff" }}>
                   {r.v}
                 </span>
               </div>
@@ -895,7 +927,7 @@ const DashboardMockup = ({ counter, ringDash, metricLabel, gold }) => {
           </span>
           <span
             style={{
-              fontSize: 10, color: gold, fontFamily: "ui-monospace, monospace",
+              fontSize: 10, color: gold, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
               fontWeight: 700,
             }}
           >

@@ -11,7 +11,7 @@ const VariantA = () => {
       width: "100%", minHeight: "100%",
       background: "radial-gradient(circle at 18% -10%, rgba(240,201,73,0.10), transparent 35%), radial-gradient(circle at 85% -20%, rgba(45,212,191,0.07), transparent 40%), #0f1115",
       color: text,
-      fontFamily: '"Inter", "Segoe UI", system-ui, sans-serif',
+      fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
       padding: "32px 56px 56px",
       position: "relative", overflow: "hidden",
     }}>
@@ -343,7 +343,8 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
   const trackRef = React.useRef(null);
 
   React.useEffect(() => {
-    const onScroll = () => {
+    let raf = 0;
+    const compute = () => {
       const y = window.scrollY || document.documentElement.scrollTop;
       setScrolled(y > 24);
       // active section detection (only for in-page anchors)
@@ -357,10 +358,18 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
         }
       }
       if (current) setActive(current);
+      raf = 0;
     };
-    onScroll();
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(compute);
+    };
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   React.useLayoutEffect(() => {
@@ -616,7 +625,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
               <span style={{
                 width: 44, height: 44, borderRadius: 999,
                 display: "grid", placeItems: "center",
-                fontFamily: '"Inter", system-ui, sans-serif', fontSize: 13, fontWeight: 700, letterSpacing: "-0.01em",
+                fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif', fontSize: 13, fontWeight: 700, letterSpacing: "-0.01em",
                 color: isActive ? "#111" : isPast ? gold : muted,
                 background: isActive ? goldGrad : "#0f0f12",
                 border: `1px solid ${isActive ? "#f2d782" : isPast ? "rgba(240,201,73,0.45)" : "rgba(255,255,255,0.12)"}`,
@@ -661,7 +670,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
           <div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 18 }}>
               <span className="vz-method-num" style={{
-                fontFamily: '"Inter", system-ui, sans-serif', fontSize: 64, fontWeight: 700,
+                fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif', fontSize: 64, fontWeight: 700,
                 background: goldGrad, WebkitBackgroundClip: "text", color: "transparent",
                 lineHeight: 0.9, letterSpacing: "-0.05em",
                 fontFeatureSettings: '"tnum" 1, "lnum" 1',
@@ -682,7 +691,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28 }}>
             {cur.chips.map((c) => (
               <span key={c} style={{
-                fontSize: 11, fontFamily: "ui-monospace, monospace",
+                fontSize: 11, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
                 padding: "6px 12px", borderRadius: 999,
                 background: "rgba(255,255,255,0.03)",
                 border: `1px solid ${subtle}`, color: muted, letterSpacing: "0.04em",
@@ -721,7 +730,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
             <span style={{
               fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em",
               background: goldGrad, WebkitBackgroundClip: "text", color: "transparent",
-              fontFamily: '"Inter", system-ui, sans-serif',
+              fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
               fontFeatureSettings: '"tnum" 1, "lnum" 1',
             }}>{cur.stat.v}</span>
             <span style={{ fontSize: 10, color: muted, letterSpacing: "0.12em", textTransform: "uppercase" }}>{cur.stat.l}</span>
@@ -732,7 +741,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       {/* Footer caption row */}
       <div style={{
         display: "flex", justifyContent: "space-between", alignItems: "center",
-        marginTop: 18, fontSize: 11, color: muted, fontFamily: "ui-monospace, monospace",
+        marginTop: 18, fontSize: 11, color: muted, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
         letterSpacing: "0.06em",
       }}>
         <span>Étape {active + 1} / {steps.length}</span>
@@ -765,7 +774,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <span style={{ fontSize: 10, letterSpacing: "0.18em", color: muted, textTransform: "uppercase" }}>Tendance · 12 mois</span>
-          <span style={{ fontSize: 12, color: gold, fontFamily: '"Inter", system-ui, sans-serif', fontWeight: 700, letterSpacing: "-0.01em" }}>+18.4%</span>
+          <span style={{ fontSize: 12, color: gold, fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif', fontWeight: 700, letterSpacing: "-0.01em" }}>+18.4%</span>
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 80, marginBottom: 16 }}>
           {bars.map((h, i) => (
@@ -783,7 +792,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
               border: `1px solid ${subtle}`,
             }}>
               <div style={{ fontSize: 9, color: muted, letterSpacing: "0.16em", textTransform: "uppercase" }}>{k}</div>
-              <div style={{ fontSize: 14, marginTop: 2, fontFamily: '"Inter", system-ui, sans-serif', fontWeight: 700, letterSpacing: "-0.01em" }}>{v}</div>
+              <div style={{ fontSize: 14, marginTop: 2, fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif', fontWeight: 700, letterSpacing: "-0.01em" }}>{v}</div>
             </div>
           ))}
         </div>
@@ -810,7 +819,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
             flexDirection: "column",
           }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: '"Inter", system-ui, sans-serif', color: text, letterSpacing: "-0.03em", fontFeatureSettings: '"tnum" 1, "lnum" 1' }}>{score}</div>
+              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif', color: text, letterSpacing: "-0.03em", fontFeatureSettings: '"tnum" 1, "lnum" 1' }}>{score}</div>
               <div style={{ fontSize: 9, color: muted, letterSpacing: "0.18em", textTransform: "uppercase" }}>/ 100</div>
             </div>
           </div>
@@ -824,7 +833,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
           ].map((r) => (
             <div key={r.l}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: muted, marginBottom: 3, letterSpacing: "0.08em" }}>
-                <span>{r.l}</span><span style={{ fontFamily: '"Inter", system-ui, sans-serif', fontWeight: 700, color: text }}>{r.v}</span>
+                <span>{r.l}</span><span style={{ fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif', fontWeight: 700, color: text }}>{r.v}</span>
               </div>
               <div style={{ height: 4, borderRadius: 2, background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
                 <div style={{ width: `${r.v}%`, height: "100%", background: r.c, borderRadius: 2 }}/>
@@ -852,7 +861,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
     }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <span style={{ fontSize: 10, letterSpacing: "0.18em", color: muted, textTransform: "uppercase" }}>Projection · 90 jours</span>
-        <span style={{ fontSize: 10, color: muted, fontFamily: "ui-monospace, monospace" }}>3 scénarios</span>
+        <span style={{ fontSize: 10, color: muted, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace' }}>3 scénarios</span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: 120 }}>
         <defs>
@@ -872,7 +881,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
         <polyline points={make(4, 5)} fill="none" stroke="rgba(240,201,73,0.55)" strokeWidth="1.5" strokeDasharray="3 3"/>
         <polyline points={make(5, 3)} fill="none" stroke="rgba(255,255,255,0.30)" strokeWidth="1.5" strokeDasharray="2 4"/>
       </svg>
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, fontSize: 10, color: muted, fontFamily: "ui-monospace, monospace" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, fontSize: 10, color: muted, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace' }}>
         {[
           { c: gold, l: "Optimiste" },
           { c: "rgba(240,201,73,0.55)", l: "Médian" },
