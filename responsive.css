@@ -59,6 +59,31 @@ html, body { -webkit-text-size-adjust: 100%; }
   .vz-method-panel > div:last-child {
     padding: 24px !important;
   }
+  /* La pastille stat (24 ratios / VYZOR SCORE / 90j) sortait du flow et
+     se posait au-dessus du preview. Sur tablette/mobile on la met inline,
+     en haut, alignée à gauche au-dessus du graphique. */
+  .vz-method-stat {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    align-self: flex-start !important;
+    justify-self: flex-start !important;
+    margin: 0 0 16px !important;
+    width: max-content !important;
+  }
+  /* Le wrapper grid place-items: center → on revient en flex column pour
+     que la pastille apparaisse au-dessus du preview, pas centrée par-dessus. */
+  .vz-method-panel > div:last-child {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+  .vz-method-panel > div:last-child > div:nth-child(2) {
+    /* le wrapper du preview — on le force pleine largeur */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
   /* —— Beta cards —— */
   .vz-beta-grid {

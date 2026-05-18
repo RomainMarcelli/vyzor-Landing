@@ -720,7 +720,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
           </div>
 
           {/* stat overlay */}
-          <div style={{
+          <div className="vz-method-stat" style={{
             position: "absolute", top: 24, right: 24,
             padding: "10px 14px", borderRadius: 12,
             background: "rgba(15,17,21,0.78)", backdropFilter: "blur(10px)",

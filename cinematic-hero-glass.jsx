@@ -27,7 +27,11 @@ const CinematicHero = ({
   const [ringDash, setRingDash] = React.useState(402);
 
   // —— Détection mobile / touch pour court-circuiter les effets coûteux
-  const [isMobile, setIsMobile] = React.useState(false);
+  // Init synchrone pour éviter un premier render desktop puis switch mobile.
+  const [isMobile, setIsMobile] = React.useState(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    return window.matchMedia("(max-width: 720px)").matches;
+  });
   const isTouchRef = React.useRef(false);
   React.useEffect(() => {
     const mql = window.matchMedia("(max-width: 720px)");
@@ -77,6 +81,15 @@ const CinematicHero = ({
   }, []);
 
   React.useEffect(() => {
+    // Sur mobile : pas de scroll listener, pas de transforms en boucle,
+    // on garde le rendu statique pour une fluidité maximale.
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(max-width: 720px)").matches
+    ) {
+      return;
+    }
     let raf = 0;
     const compute = () => {
       raf = 0;
@@ -164,6 +177,128 @@ const CinematicHero = ({
   const glassBorder = "1px solid rgba(255,255,255,0.18)";
   const glassShadow =
     "0 30px 80px -20px rgba(8,10,20,0.7), 0 8px 24px -8px rgba(8,10,20,0.5), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(255,255,255,0.06)";
+
+  // —— Hero MOBILE statique : sans sticky, sans scroll-driven animation,
+  // sans halos blur 60px. Performance maximale.
+  if (isMobile) {
+    return (
+      <section
+        style={{
+          position: "relative",
+          width: "100%",
+          minHeight: "100vh",
+          background: "#070a14",
+          color: text,
+          fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
+          padding: "120px 22px 56px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          overflow: "hidden",
+        }}
+      >
+        {/* Halo statique discret — un seul gradient, pas de filter blur */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background:
+              "radial-gradient(60% 40% at 50% 18%, rgba(240,201,73,0.16), transparent 60%), " +
+              "radial-gradient(70% 50% at 50% 100%, rgba(99,102,241,0.14), transparent 65%)",
+          }}
+        />
+
+        <div style={{ position: "relative", zIndex: 2, maxWidth: 520 }}>
+          <h1
+            style={{
+              fontSize: "clamp(38px, 11vw, 56px)",
+              lineHeight: 1.04, letterSpacing: "-0.035em",
+              margin: 0, fontWeight: 500, color: "rgba(255,255,255,0.94)",
+            }}
+          >
+            {tagline1}
+          </h1>
+          <h1
+            style={{
+              fontSize: "clamp(38px, 11vw, 56px)",
+              lineHeight: 1.04, letterSpacing: "-0.04em",
+              margin: "4px 0 0", fontWeight: 700,
+              backgroundImage:
+                "linear-gradient(180deg, #ffffff 0%, #d8e0ff 100%)",
+              WebkitBackgroundClip: "text", backgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            {tagline2}
+          </h1>
+
+          <p
+            style={{
+              fontSize: 15, lineHeight: 1.6, color: muted,
+              margin: "28px auto 0", maxWidth: 440,
+              textWrap: "pretty",
+            }}
+          >
+            {cardDescription}
+          </p>
+
+          <div
+            style={{
+              marginTop: 36, display: "flex", flexDirection: "column",
+              gap: 12, alignItems: "stretch",
+            }}
+          >
+            <a
+              href="#beta"
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
+                padding: "16px 26px", borderRadius: 16,
+                border: "1px solid rgba(255,255,255,0.55)",
+                backgroundImage: goldGrad,
+                color: "#1a1410", fontWeight: 700, fontSize: 15,
+                textDecoration: "none", letterSpacing: "0.02em",
+                boxShadow: "0 10px 24px rgba(216,172,47,0.30), inset 0 1px 0 rgba(255,255,255,0.6)",
+              }}
+            >
+              Candidater à la bêta →
+            </a>
+            <a
+              href="#produit"
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                padding: "16px 26px", borderRadius: 16,
+                background: "rgba(255,255,255,0.06)",
+                color: "#fff", fontWeight: 600, fontSize: 14,
+                textDecoration: "none",
+                border: "1px solid rgba(255,255,255,0.18)",
+              }}
+            >
+              Voir le produit
+            </a>
+          </div>
+
+          <div
+            style={{
+              marginTop: 28, fontSize: 11.5, color: muted,
+              display: "flex", flexWrap: "wrap", gap: "8px 14px",
+              justifyContent: "center", letterSpacing: "0.02em",
+            }}
+          >
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <span style={{ width: 6, height: 6, borderRadius: 999, background: "#5eead4" }} />
+              Gratuit pendant la bêta
+            </span>
+            <span style={{ opacity: 0.4 }}>·</span>
+            <span>Tarif préférentiel à vie</span>
+            <span style={{ opacity: 0.4 }}>·</span>
+            <span>Setup 5 min</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <div
