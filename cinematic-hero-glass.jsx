@@ -307,7 +307,8 @@ const CinematicHero = ({
           style={{
             position: "absolute", inset: 0, zIndex: 20,
             display: "flex", alignItems: "center", justifyContent: "center",
-            pointerEvents: cardRise > 0.5 ? "auto" : "none",
+            // Doit laisser passer les clics vers le CTA (zIndex 15) dès qu'il apparaît
+            pointerEvents: (cardRise > 0.5 && ctaIn < 0.1) ? "auto" : "none",
           }}
         >
           <div
@@ -630,7 +631,7 @@ const CinematicHero = ({
             opacity: ctaIn,
             transform: `scale(${0.85 + ctaIn * 0.15})`,
             filter: isMobile ? "none" : `blur(${(1 - ctaIn) * 16}px)`,
-            pointerEvents: ctaIn > 0.5 ? "auto" : "none",
+            pointerEvents: ctaIn > 0.1 ? "auto" : "none",
             willChange: isMobile ? "auto" : "transform, opacity, filter",
           }}
         >
