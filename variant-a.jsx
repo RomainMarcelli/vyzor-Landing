@@ -691,10 +691,11 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28 }}>
             {cur.chips.map((c) => (
               <span key={c} style={{
-                fontSize: 11, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
+                fontSize: 11, fontFamily: 'inherit', fontWeight: 500,
                 padding: "6px 12px", borderRadius: 999,
                 background: "rgba(255,255,255,0.03)",
-                border: `1px solid ${subtle}`, color: muted, letterSpacing: "0.04em",
+                border: `1px solid ${subtle}`, color: muted, letterSpacing: "0.14em",
+                textTransform: "uppercase",
               }}>{c}</span>
             ))}
           </div>
@@ -741,8 +742,8 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       {/* Footer caption row */}
       <div style={{
         display: "flex", justifyContent: "space-between", alignItems: "center",
-        marginTop: 18, fontSize: 11, color: muted, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
-        letterSpacing: "0.06em",
+        marginTop: 18, fontSize: 11, color: muted, fontFamily: 'inherit', fontWeight: 500,
+        letterSpacing: "0.18em", textTransform: "uppercase",
       }}>
         <span>Étape {active + 1} / {steps.length}</span>
         <button
@@ -861,7 +862,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
     }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <span style={{ fontSize: 10, letterSpacing: "0.18em", color: muted, textTransform: "uppercase" }}>Projection · 90 jours</span>
-        <span style={{ fontSize: 10, color: muted, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace' }}>3 scénarios</span>
+        <span style={{ fontSize: 10, color: muted, fontFamily: 'inherit', fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase" }}>3 scénarios</span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: 120 }}>
         <defs>
@@ -881,7 +882,7 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
         <polyline points={make(4, 5)} fill="none" stroke="rgba(240,201,73,0.55)" strokeWidth="1.5" strokeDasharray="3 3"/>
         <polyline points={make(5, 3)} fill="none" stroke="rgba(255,255,255,0.30)" strokeWidth="1.5" strokeDasharray="2 4"/>
       </svg>
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, fontSize: 10, color: muted, fontFamily: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace' }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, fontSize: 10, color: muted, fontFamily: 'inherit', fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase" }}>
         {[
           { c: gold, l: "Optimiste" },
           { c: "rgba(240,201,73,0.55)", l: "Médian" },
