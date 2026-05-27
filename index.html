@@ -5,6 +5,22 @@
   <title>VYZOR — Pilotage intelligent pour décideurs exigeants</title>
   <meta name="description" content="VYZOR — Le copilote financier intelligent pour dirigeants. Reporting, prévisions, calculateurs gratuits." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Favicons + Open Graph (Vyzor ribbon) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="vyzor-mark.svg" />
+  <meta name="theme-color" content="#0f1530" />
+  <meta property="og:image" content="https://vyzor.fr/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="VYZOR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://vyzor.fr/og-image.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -85,6 +101,90 @@
   <script type="text/babel" src="footer-glass.jsx"></script>
 
   <script type="text/babel">
+    // —— Petit "duo de cartes" compact pour inciter à visiter Fonctionnalités & Sécurité
+    const ExploreMore = ({ gold, text, muted, subtle }) => {
+      const items = [
+        {
+          href: "fonctionnalites.html",
+          kicker: "Fonctionnalités",
+          title: "Voir tout ce que Vyzor sait faire",
+          icon: (
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1.2"/>
+              <rect x="14" y="3" width="7" height="7" rx="1.2"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.2"/>
+              <rect x="14" y="14" width="7" height="7" rx="1.2"/>
+            </svg>
+          ),
+        },
+        {
+          href: "securite.html",
+          kicker: "Sécurité",
+          title: "Hébergement français, chiffrement, conformité",
+          icon: (
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          ),
+        },
+      ];
+      return (
+        <div className="vz-explore-more" style={{
+          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12,
+          marginTop: -56, marginBottom: 80,
+        }}>
+          {items.map((it) => (
+            <a key={it.href} href={it.href} style={{
+              display: "flex", alignItems: "center", gap: 16,
+              padding: "16px 20px", borderRadius: 14,
+              background: "rgba(255,255,255,0.02)",
+              border: `1px solid ${subtle}`,
+              textDecoration: "none", color: text,
+              transition: "background 220ms ease, border-color 220ms ease, transform 220ms ease",
+            }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = "rgba(240,201,73,0.04)";
+                e.currentTarget.style.borderColor = "rgba(240,201,73,0.28)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+                const arrow = e.currentTarget.querySelector(".vz-explore-arrow");
+                if (arrow) arrow.style.transform = "translateX(4px)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.02)";
+                e.currentTarget.style.borderColor = subtle;
+                e.currentTarget.style.transform = "translateY(0)";
+                const arrow = e.currentTarget.querySelector(".vz-explore-arrow");
+                if (arrow) arrow.style.transform = "translateX(0)";
+              }}
+            >
+              <span style={{
+                width: 36, height: 36, borderRadius: 10, flexShrink: 0,
+                display: "grid", placeItems: "center",
+                background: "rgba(240,201,73,0.08)",
+                border: "1px solid rgba(240,201,73,0.22)",
+                color: gold,
+              }}>{it.icon}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{
+                  fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase",
+                  fontWeight: 700, color: gold, marginBottom: 3,
+                }}>{it.kicker}</div>
+                <div style={{
+                  fontSize: 14, fontWeight: 500, letterSpacing: "-0.005em",
+                  whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                }}>{it.title}</div>
+              </div>
+              <span className="vz-explore-arrow" style={{
+                color: gold, fontSize: 16, flexShrink: 0,
+                transition: "transform 220ms ease",
+              }}>→</span>
+            </a>
+          ))}
+        </div>
+      );
+    };
+
     const App = () => {
       const gold = "#f0c949";
       const text = "rgba(255,255,255,0.92)";
@@ -149,8 +249,7 @@
             padding: "0 clamp(24px, 6vw, 96px)",
           }}>
             <div className="vz-reveal"><MethodologySection id="produit" gold={gold} text={text} muted={muted} subtle={subtle} /></div>
-            <div className="vz-reveal"><FeaturesGlass /></div>
-            <div className="vz-reveal"><SecuritySection /></div>
+            <div className="vz-reveal"><ExploreMore gold={gold} text={text} muted={muted} subtle={subtle} /></div>
             <div className="vz-reveal"><BetaFormGlass /></div>
           </div>
           {/* Footer plein écran — sort du container 1180px */}

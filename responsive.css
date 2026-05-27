@@ -353,3 +353,15 @@ html, body { -webkit-text-size-adjust: 100%; }
     min-height: 0;
   }
 }
+
+/* —— Duo de cartes "Explore more" : empiler sur mobile —— */
+@media (max-width: 720px) {
+  .vz-explore-more {
+    grid-template-columns: 1fr !important;
+    margin-top: -16px !important;
+    margin-bottom: 56px !important;
+  }
+  .vz-explore-more a > div > div:last-child {
+    white-space: normal !important;
+  }
+}

@@ -1,13 +1,47 @@
 // shared.jsx — assets et primitives communes aux 3 variantes VYZOR
 
-// Logo VYZOR (placeholder typographique premium — V monogram)
-const VyzorLogo = ({ size = 32, color = "#f0c949", bg = "#0f0f12", ring = "rgba(255,255,255,0.08)" }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" style={{ display: "block" }}>
-    <rect x="1" y="1" width="62" height="62" rx="14" fill={bg} stroke={ring} strokeWidth="1" />
-    <path d="M16 18 L32 46 L48 18" fill="none" stroke={color} strokeWidth="3.5" strokeLinecap="square" strokeLinejoin="miter" />
-    <circle cx="32" cy="50" r="2" fill={color} />
-  </svg>
-);
+// Logo VYZOR — ruban entrelacé (mark officiel)
+// Le `bg` est conservé pour les contextes clairs (favicon clipped, header light).
+// Quand bg = "transparent", seul le ruban doré est rendu, sans cadre.
+const VyzorLogo = ({ size = 32, color = "#C5A059", bg = "transparent", ring = "transparent" }) => {
+  const hasFrame = bg !== "transparent" && bg !== "none";
+  return (
+    <svg width={size} height={size} viewBox="0 0 1024 1024" style={{ display: "block" }} aria-label="Vyzor">
+      {hasFrame && (
+        <rect x="8" y="8" width="1008" height="1008" rx="220"
+          fill={bg} stroke={ring} strokeWidth={ring !== "transparent" ? 8 : 0} />
+      )}
+      <g transform="translate(0,1024) scale(0.1,-0.1)" fill={color} stroke="none">
+        <path d="M4630 7940 c-497 -24 -562 -60 -753 -410 -286 -527 -307 -590 -263
+-770 49 -194 90 -265 613 -1035 75 -110 176 -260 225 -332 49 -73 93 -133 98
+-133 11 0 30 28 304 458 l206 323 -92 132 c-51 73 -114 164 -140 202 -27 39
+-82 117 -123 175 -350 499 -347 493 -279 512 261 74 829 88 1258 33 248 -33
+248 -32 173 -153 -56 -91 -384 -596 -416 -642 -10 -14 -52 -79 -93 -145 -41
+-66 -131 -205 -200 -310 -402 -613 -872 -1358 -957 -1515 -199 -370 -211 -748
+-34 -1092 67 -133 374 -596 466 -705 71 -83 150 -149 167 -138 6 4 -4 23 -24
+47 -144 168 -202 494 -134 753 73 278 70 272 716 1295 89 140 179 284 202 320
+22 36 76 121 120 190 44 69 121 190 171 270 50 80 141 226 204 325 714 1130
+738 1211 502 1657 -30 57 -78 147 -106 200 -228 433 -271 459 -806 488 -203
+11 -771 11 -1005 0z" />
+        <path d="M3130 6838 c-135 -44 -328 -107 -429 -140 -102 -33 -211 -73 -243
+-89 -205 -104 -264 -350 -140 -590 22 -41 203 -322 404 -625 201 -302 418
+-630 483 -729 65 -99 168 -256 230 -350 61 -93 153 -233 202 -310 144 -222
+204 -306 212 -301 4 3 11 56 14 118 12 241 117 534 282 789 24 38 54 87 64
+108 l20 39 -196 293 c-108 162 -208 312 -222 334 -14 22 -92 139 -172 260
+-363 549 -376 570 -420 694 -68 193 -35 346 106 488 116 117 127 116 -195 11z" />
+        <path d="M6855 6910 c-3 -5 14 -22 37 -38 111 -76 188 -197 208 -326 29 -185
+-56 -383 -385 -891 -68 -105 -652 -1041 -686 -1099 -19 -33 -59 -96 -87 -139
+-29 -43 -52 -80 -52 -82 0 -6 -353 -571 -467 -748 -40 -62 -82 -130 -94 -152
+-12 -22 -58 -76 -103 -121 -118 -117 -232 -150 -362 -105 -64 23 -57 32 -80
+-108 -21 -129 -15 -233 21 -354 163 -560 700 -615 1090 -112 56 72 250 379
+414 655 35 58 73 121 86 140 26 40 275 444 409 665 51 83 113 183 139 223 26
+40 47 74 47 76 0 4 145 242 260 426 86 139 237 384 348 565 57 94 127 208 156
+255 214 345 244 404 267 520 43 217 -77 414 -291 478 -83 25 -472 149 -663
+212 -114 37 -209 64 -212 60z" />
+      </g>
+    </svg>
+  );
+};
 
 // Mock dashboard — réutilisable, prend une "skin" pour s'adapter au thème de la variante
 const MockDashboard = ({ skin = "dark", scale = 1 }) => {
@@ -38,7 +72,7 @@ const MockDashboard = ({ skin = "dark", scale = 1 }) => {
       {/* Top bar */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <VyzorLogo size={26} color={gold} bg={dark ? "#0f0f12" : "#fff"} ring={border} />
+          <VyzorLogo size={32} color={gold} bg={dark ? "#0f1530" : "#fff"} ring={border} />
           <div>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", color: muted, textTransform: "uppercase" }}>Vyzor</div>
             <div style={{ fontSize: 13, fontWeight: 600 }}>Cockpit financier · ACME SAS</div>

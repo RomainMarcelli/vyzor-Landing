@@ -46,7 +46,7 @@ const VyzorFooterGlass = ({ fullWidth = false }) => {
         { label: "Passé · Présent · Futur", href: "#methode" },
         { label: "Pour les DAF", href: "#daf" },
         { label: "Pour les experts-comptables", href: "#ec" },
-        { label: "Sécurité & RGPD", href: "#securite" },
+        { label: "Sécurité & RGPD", href: "securite.html" },
       ],
     },
     {

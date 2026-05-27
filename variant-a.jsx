@@ -332,10 +332,19 @@ const BetaForm = ({ variant = "dark" }) => {
 // New top nav: floating centered pill, active indicator, scroll-aware compact mode
 const VyzorNav = ({ gold, text, muted, subtle }) => {
   const items = [
-    { id: "produit", label: "Le produit" },
-    { id: "calculateurs", label: "Calculateurs", href: "calculateurs.html", external: true },
+    { id: "produit", label: "Le produit", href: "index.html#produit", external: true, matchPath: /(^\/?$|index\.html?$)/i, anchor: "produit" },
+    { id: "fonctionnalites", label: "Fonctionnalités", href: "fonctionnalites.html", external: true, matchPath: /fonctionnalites\.html?$/i },
+    { id: "securite", label: "Sécurité", href: "securite.html", external: true, matchPath: /securite\.html?$/i },
+    { id: "calculateurs", label: "Calculateurs", href: "calculateurs.html", external: true, matchPath: /calculateurs(\.html?|\/)?$/i },
   ];
-  const [active, setActive] = React.useState("produit");
+  // Détermine la page courante au montage
+  const initialActive = (() => {
+    if (typeof window === "undefined") return "produit";
+    const p = window.location.pathname || "";
+    const found = items.find(it => it.matchPath && it.matchPath.test(p));
+    return found ? found.id : "produit";
+  })();
+  const [active, setActive] = React.useState(initialActive);
   const [scrolled, setScrolled] = React.useState(false);
   const [hovered, setHovered] = React.useState(null);
   const [indicator, setIndicator] = React.useState({ left: 0, width: 0, opacity: 0 });
@@ -404,9 +413,9 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
           : "0 8px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05)",
         transition: "all 320ms cubic-bezier(0.22, 1, 0.36, 1)",
       }}>
-        {/* Brand */}
-        <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", paddingRight: 4 }}>
-          <VyzorLogo size={26} color={gold} />
+        {/* Brand — mark seul (transparent) pour s'intégrer au verre de la navbar */}
+        <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", paddingRight: 4, paddingLeft: 2 }}>
+          <VyzorLogo size={28} color={gold} bg="transparent" />
           <div style={{
             fontSize: 11, letterSpacing: "0.32em", color: text, fontWeight: 700,
             overflow: "hidden",

@@ -10,6 +10,20 @@
   </url>
 
   <url>
+    <loc>https://vyzor.fr/fonctionnalites.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://vyzor.fr/fonctionnalites.html" />
+  </url>
+
+  <url>
+    <loc>https://vyzor.fr/securite.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://vyzor.fr/securite.html" />
+  </url>
+
+  <url>
     <loc>https://vyzor.fr/VYZOR%20Calculateurs.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
