@@ -9,6 +9,19 @@
 
 html, body { -webkit-text-size-adjust: 100%; }
 
+/* —— Bandeau "Nouvelle fonctionnalité" (FeatureBadge) —— */
+@media (max-width: 480px) {
+  .vz-feature-badge {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    border-radius: 20px !important;
+    padding: 8px 14px !important;
+    row-gap: 6px !important;
+  }
+  .vz-feature-badge .vz-fb-text { font-size: 12.5px; }
+}
+
 /* ============================================================
    TABLETTE  (<= 980px)
    ============================================================ */
@@ -88,6 +101,29 @@ html, body { -webkit-text-size-adjust: 100%; }
   /* —— Beta cards —— */
   .vz-beta-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  /* —— Co-conception DAF —— */
+  .vz-daf-header {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .vz-daf-header > p {
+    padding-left: 0 !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+    padding-top: 16px !important;
+  }
+  .vz-daf-panel {
+    grid-template-columns: 1fr !important;
+  }
+  .vz-daf-loop {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    padding: 28px 24px !important;
+  }
+  .vz-daf-shaped {
+    padding: 28px 24px !important;
   }
 
   /* —— Footer —— */
@@ -205,6 +241,11 @@ html, body { -webkit-text-size-adjust: 100%; }
     align-items: flex-start !important;
   }
   .vz-beta-head > div:last-child { text-align: left !important; }
+
+  /* —— Co-conception DAF —— */
+  .vz-daf-header h2 {
+    font-size: clamp(32px, 8vw, 44px) !important;
+  }
 
   /* —— Variant A (legacy fallback) —— */
   .vz-vA-hero {

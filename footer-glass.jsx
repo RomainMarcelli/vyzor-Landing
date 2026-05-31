@@ -53,6 +53,7 @@ const VyzorFooterGlass = ({ fullWidth = false }) => {
       title: "Société",
       links: [
         { label: "À propos", href: "#about" },
+        { label: "FAQ", href: "faq.html" },
         { label: "Manifeste", href: "#manifeste" },
         { label: "Presse", href: "#presse" },
         { label: "Nous contacter", href: "mailto:admin@vyzor.fr" },

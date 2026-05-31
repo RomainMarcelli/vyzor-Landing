@@ -313,6 +313,88 @@ const FEATURES_BY_ROLE = {
 
 const ROLE_ORDER = ["comptable", "daf", "dirigeant"];
 
+// —— Bandeau "Nouvelle fonctionnalité" — adaptation du BadgeGroup (modern / brand / leading)
+// d'Untitled UI à l'esthétique liquid-glass dorée de Vyzor. Au clic → ouvre le formulaire.
+const FeatureBadge = ({ gold = "#f0c949", href = "#beta" }) => {
+  const goldGrad = "linear-gradient(135deg,#f9e08a 0%, #ebc85b 52%, #d8ac2f 100%)";
+  return (
+    <a
+      href={href}
+      data-contact
+      className="vz-feature-badge"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 12,
+        maxWidth: "100%",
+        padding: "5px 16px 5px 5px",
+        borderRadius: 999,
+        background: "rgba(255,255,255,0.06)",
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        border: "1px solid rgba(255,255,255,0.16)",
+        boxShadow:
+          "0 10px 30px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.28)",
+        textDecoration: "none",
+        color: "rgba(255,255,255,0.92)",
+        fontSize: 13,
+        fontWeight: 500,
+        letterSpacing: "-0.005em",
+        lineHeight: 1.2,
+        transition:
+          "border-color 220ms ease, background 220ms ease, transform 220ms ease, box-shadow 220ms ease",
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.borderColor = "rgba(240,201,73,0.42)";
+        e.currentTarget.style.background = "rgba(240,201,73,0.06)";
+        e.currentTarget.style.transform = "translateY(-1px)";
+        const a = e.currentTarget.querySelector(".vz-fb-arrow");
+        if (a) a.style.transform = "translateX(3px)";
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.borderColor = "rgba(255,255,255,0.16)";
+        e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+        e.currentTarget.style.transform = "translateY(0)";
+        const a = e.currentTarget.querySelector(".vz-fb-arrow");
+        if (a) a.style.transform = "translateX(0)";
+      }}
+    >
+      <span
+        style={{
+          flexShrink: 0,
+          padding: "4px 11px",
+          borderRadius: 999,
+          backgroundImage: goldGrad,
+          color: "#1a1410",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: "0.02em",
+          whiteSpace: "nowrap",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 8px rgba(216,172,47,0.35)",
+        }}
+      >
+        Nouveauté
+      </span>
+      <span className="vz-fb-text">
+        Le portefeuille client &amp; les comptes cabinet
+      </span>
+      <span
+        className="vz-fb-arrow"
+        aria-hidden="true"
+        style={{
+          flexShrink: 0,
+          color: gold,
+          fontSize: 15,
+          transition: "transform 220ms ease",
+        }}
+      >
+        →
+      </span>
+    </a>
+  );
+};
+
 // Switcher segmenté avec pill magnétique
 const FeatureSwitcher = ({ value, onChange }) => {
   const refs = React.useRef({});
@@ -357,10 +439,24 @@ const FeatureSwitcher = ({ value, onChange }) => {
   );
 };
 
-// Carte feature — inspirée du composant CategoryList partagé
+// Carte feature — inspirée du composant CategoryList partagé.
+// Au clic → ouvre la modale de candidature (formulaire de contact).
+const openVyzorContact = () => {
+  window.dispatchEvent(new CustomEvent("vyzor:open-contact"));
+};
+
 const FeatureCard = ({ title, sub, delay = 0 }) => (
   <div
     className="feat-card"
+    role="button"
+    tabIndex={0}
+    onClick={openVyzorContact}
+    onKeyDown={(e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openVyzorContact();
+      }
+    }}
     style={{
       animation: `featRise 460ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms both`,
     }}
@@ -415,6 +511,9 @@ const FeaturesGlass = () => {
         }}
       >
         <div style={{ maxWidth: 680 }}>
+          <div style={{ marginBottom: 22 }}>
+            <FeatureBadge gold={gold} />
+          </div>
           <h2
             key={`headline-${renderKey}`}
             style={{
@@ -477,4 +576,4 @@ const FeaturesGlass = () => {
   );
 };
 
-Object.assign(window, { FeaturesGlass, FeatureSwitcher, FeatureCard, FEATURES_BY_ROLE });
+Object.assign(window, { FeaturesGlass, FeatureSwitcher, FeatureCard, FeatureBadge, FEATURES_BY_ROLE });

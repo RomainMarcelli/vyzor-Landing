@@ -251,7 +251,7 @@ const BetaModal = ({ open, onClose }) => {
 
   if (!open) return null;
 
-  return (
+  const overlay = (
     <div className="beta-modal-overlay" onClick={onClose}>
       <div className="beta-modal" onClick={(e) => e.stopPropagation()}>
         <button className="beta-modal__close" onClick={onClose} aria-label="Fermer">×</button>
@@ -392,6 +392,8 @@ const BetaModal = ({ open, onClose }) => {
       </div>
     </div>
   );
+
+  return ReactDOM.createPortal(overlay, document.body);
 };
 
 const BetaFormGlass = () => {
@@ -441,9 +443,14 @@ const BetaFormGlass = () => {
     };
     window.addEventListener("hashchange", onHash);
 
+    // Ouverture via événement custom (ex. clic sur une carte fonctionnalité)
+    const onOpenContact = () => setOpen(true);
+    window.addEventListener("vyzor:open-contact", onOpenContact);
+
     return () => {
       document.removeEventListener("click", onClickAnywhere);
       window.removeEventListener("hashchange", onHash);
+      window.removeEventListener("vyzor:open-contact", onOpenContact);
     };
   }, []);
 
