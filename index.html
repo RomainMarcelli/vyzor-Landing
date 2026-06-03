@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>VYZOR — Pilotage intelligent pour décideurs exigeants</title>
-  <meta name="description" content="VYZOR — Le copilote financier intelligent pour dirigeants. Reporting, prévisions, calculateurs gratuits." />
+  <meta name="description" content="VYZOR, le copilote financier des dirigeants : reporting clair, prévisions de trésorerie et indicateurs en temps réel pour décider plus vite." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Favicons + Open Graph (Vyzor ribbon) -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
@@ -94,7 +94,45 @@
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"VYZOR","url":"https://vyzor.fr/","logo":"https://vyzor.fr/icon-512.png"},{"@context":"https://schema.org","@type":"WebSite","name":"VYZOR","url":"https://vyzor.fr/","inLanguage":"fr-FR"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"VYZOR","applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"fr-FR"}]</script>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://vyzor.fr/#organization",
+      "name": "VYZOR",
+      "alternateName": ["Vizor", "Vysor", "Visor", "Vyzor.fr", "Vyzor pilotage"],
+      "url": "https://vyzor.fr/",
+      "logo": "https://vyzor.fr/icon-512.png",
+      "description": "VYZOR — Le copilote financier intelligent pour dirigeants : reporting, prévisions et calculateurs gratuits."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "VYZOR",
+      "url": "https://vyzor.fr/",
+      "inLanguage": "fr-FR",
+      "publisher": { "@id": "https://vyzor.fr/#organization" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VYZOR",
+      "alternateName": ["Vizor", "Vysor"],
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr-FR",
+      "url": "https://vyzor.fr/",
+      "description": "Plateforme de pilotage et reporting financier pour dirigeants, DAF et experts-comptables.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "publisher": { "@id": "https://vyzor.fr/#organization" }
+    }
+  ]
+  </script>
 </head>
 <body>
   <div id="root"></div>
@@ -118,15 +156,135 @@
   <script type="text/babel" src="footer-glass.jsx"></script>
 
   <script type="text/babel">
-    // —— Petit "duo de cartes" compact pour inciter à visiter Fonctionnalités & Sécurité
-    const ExploreMore = ({ gold, text, muted, subtle }) => {
+    // —— Carte "glow" premium (3D tilt + lueur dorée) inspirée du gradient-card,
+    //    adaptée à la palette Vyzor (or au lieu de violet/bleu).
+    const NOISE_URI = "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
+
+    const GlowExploreCard = ({ item, gold, text }) => {
+      const ref = React.useRef(null);
+      const [tilt, setTilt] = React.useState({ x: 0, y: 0 });
+      const [hover, setHover] = React.useState(false);
+
+      const onMove = (e) => {
+        const el = ref.current;
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        setTilt({ x: -(y / r.height) * 4, y: (x / r.width) * 4 });
+      };
+      const reset = () => { setHover(false); setTilt({ x: 0, y: 0 }); };
+
+      const glow = hover
+        ? "0 0 22px 5px rgba(240,201,73,0.55), 0 0 38px 8px rgba(240,201,73,0.30)"
+        : "0 0 16px 3px rgba(240,201,73,0.40), 0 0 28px 6px rgba(240,201,73,0.18)";
+
+      return (
+        <a
+          ref={ref}
+          href={item.href}
+          onMouseEnter={() => setHover(true)}
+          onMouseMove={onMove}
+          onMouseLeave={reset}
+          style={{
+            position: "relative",
+            display: "block",
+            minHeight: 116,
+            borderRadius: 18,
+            overflow: "hidden",
+            textDecoration: "none",
+            color: text,
+            backgroundColor: "#0a0e1a",
+            transformStyle: "preserve-3d",
+            transform: `perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${hover ? -4 : 0}px)`,
+            transition: "transform 360ms cubic-bezier(0.22,1,0.36,1), box-shadow 360ms ease",
+            boxShadow: hover
+              ? "0 -8px 80px 6px rgba(240,201,73,0.16), 0 18px 48px -12px rgba(0,0,0,0.7)"
+              : "0 -6px 60px 4px rgba(240,201,73,0.10), 0 12px 36px -14px rgba(0,0,0,0.6)",
+          }}
+        >
+          {/* Fond dégradé sombre */}
+          <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, #0c1120 0%, #070a14 75%)" }} />
+          {/* Lueur dorée bas-droite + bas-gauche */}
+          <span style={{
+            position: "absolute", left: 0, right: 0, bottom: 0, height: "75%",
+            background:
+              "radial-gradient(ellipse at bottom right, rgba(240,201,73,0.45) -10%, rgba(240,201,73,0) 68%), radial-gradient(ellipse at bottom left, rgba(245,176,66,0.32) -10%, rgba(240,201,73,0) 70%)",
+            filter: "blur(36px)",
+            opacity: hover ? 0.95 : 0.78,
+            transition: "opacity 360ms ease",
+          }} />
+          {/* Texture grain */}
+          <span style={{
+            position: "absolute", inset: 0, opacity: 0.22, mixBlendMode: "overlay",
+            backgroundImage: NOISE_URI,
+          }} />
+          {/* Reflet verre */}
+          <span style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 82%, rgba(255,255,255,0.05) 100%)",
+          }} />
+          {/* Liseré lumineux bas */}
+          <span style={{
+            position: "absolute", left: 0, right: 0, bottom: 0, height: 2,
+            background: "linear-gradient(90deg, rgba(240,201,73,0.05) 0%, rgba(240,201,73,0.9) 50%, rgba(240,201,73,0.05) 100%)",
+            boxShadow: glow,
+            opacity: hover ? 1 : 0.9,
+            transition: "box-shadow 360ms ease, opacity 360ms ease",
+          }} />
+
+          {/* Contenu */}
+          <span style={{
+            position: "relative", zIndex: 2,
+            display: "flex", alignItems: "center", gap: 16,
+            height: "100%", minHeight: 116, padding: "18px 22px",
+          }}>
+            <span style={{
+              width: 42, height: 42, borderRadius: 12, flexShrink: 0,
+              display: "grid", placeItems: "center",
+              background: "linear-gradient(225deg, #171c2c 0%, #11151f 100%)",
+              border: "1px solid rgba(240,201,73,0.22)",
+              boxShadow: "inset 1px 1px 3px rgba(255,255,255,0.10), inset -2px -2px 5px rgba(0,0,0,0.6), 0 6px 14px -4px rgba(0,0,0,0.5)",
+              color: gold,
+            }}>{item.icon}</span>
+
+            <span style={{ flex: 1, minWidth: 0, display: "block" }}>
+              <span style={{
+                display: "block",
+                fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase",
+                fontWeight: 700, color: gold, marginBottom: 6,
+              }}>{item.kicker}</span>
+              <span style={{
+                display: "block",
+                fontSize: 16, fontWeight: 600, letterSpacing: "-0.01em",
+                lineHeight: 1.3, color: "#fff",
+                textShadow: "0 1px 8px rgba(0,0,0,0.4)",
+              }}>{item.title}</span>
+            </span>
+
+            <span aria-hidden="true" style={{
+              flexShrink: 0, width: 38, height: 38, borderRadius: "50%",
+              display: "grid", placeItems: "center",
+              border: "1px solid rgba(240,201,73,0.30)",
+              background: "rgba(240,201,73,0.06)",
+              color: gold, fontSize: 17, lineHeight: 1,
+              transform: hover ? "translateX(4px)" : "translateX(0)",
+              transition: "transform 300ms cubic-bezier(0.22,1,0.36,1)",
+            }}>→</span>
+          </span>
+        </a>
+      );
+    };
+
+    // —— Duo de cartes premium pour inciter à visiter Fonctionnalités & Sécurité
+    const ExploreMore = ({ gold, text }) => {
       const items = [
         {
           href: "fonctionnalites.html",
           kicker: "Fonctionnalités",
           title: "Voir tout ce que Vyzor sait faire",
           icon: (
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7" rx="1.2"/>
               <rect x="14" y="3" width="7" height="7" rx="1.2"/>
               <rect x="3" y="14" width="7" height="7" rx="1.2"/>
@@ -139,7 +297,7 @@
           kicker: "Sécurité",
           title: "Hébergement français, chiffrement, conformité",
           icon: (
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/>
               <path d="m9 12 2 2 4-4"/>
             </svg>
@@ -148,55 +306,11 @@
       ];
       return (
         <div className="vz-explore-more" style={{
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12,
+          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18,
           marginTop: -56, marginBottom: 80,
         }}>
           {items.map((it) => (
-            <a key={it.href} href={it.href} style={{
-              display: "flex", alignItems: "center", gap: 16,
-              padding: "16px 20px", borderRadius: 14,
-              background: "rgba(255,255,255,0.02)",
-              border: `1px solid ${subtle}`,
-              textDecoration: "none", color: text,
-              transition: "background 220ms ease, border-color 220ms ease, transform 220ms ease",
-            }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.background = "rgba(240,201,73,0.04)";
-                e.currentTarget.style.borderColor = "rgba(240,201,73,0.28)";
-                e.currentTarget.style.transform = "translateY(-1px)";
-                const arrow = e.currentTarget.querySelector(".vz-explore-arrow");
-                if (arrow) arrow.style.transform = "translateX(4px)";
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.02)";
-                e.currentTarget.style.borderColor = subtle;
-                e.currentTarget.style.transform = "translateY(0)";
-                const arrow = e.currentTarget.querySelector(".vz-explore-arrow");
-                if (arrow) arrow.style.transform = "translateX(0)";
-              }}
-            >
-              <span style={{
-                width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-                display: "grid", placeItems: "center",
-                background: "rgba(240,201,73,0.08)",
-                border: "1px solid rgba(240,201,73,0.22)",
-                color: gold,
-              }}>{it.icon}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{
-                  fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase",
-                  fontWeight: 700, color: gold, marginBottom: 3,
-                }}>{it.kicker}</div>
-                <div style={{
-                  fontSize: 14, fontWeight: 500, letterSpacing: "-0.005em",
-                  whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-                }}>{it.title}</div>
-              </div>
-              <span className="vz-explore-arrow" style={{
-                color: gold, fontSize: 16, flexShrink: 0,
-                transition: "transform 220ms ease",
-              }}>→</span>
-            </a>
+            <GlowExploreCard key={it.href} item={it} gold={gold} text={text} />
           ))}
         </div>
       );

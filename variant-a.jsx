@@ -335,7 +335,6 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
     { id: "produit", label: "Le produit", href: "index.html#produit", external: true, matchPath: /(^\/?$|index\.html?$)/i, anchor: "produit" },
     { id: "fonctionnalites", label: "Fonctionnalités", href: "fonctionnalites.html", external: true, matchPath: /fonctionnalites\.html?$/i },
     { id: "securite", label: "Sécurité", href: "securite.html", external: true, matchPath: /securite\.html?$/i },
-    { id: "calculateurs", label: "Calculateurs", href: "calculateurs.html", external: true, matchPath: /calculateurs(\.html?|\/)?$/i },
     { id: "faq", label: "FAQ", href: "faq.html", external: true, matchPath: /faq\.html?$/i },
   ];
   // Détermine la page courante au montage
@@ -578,26 +577,15 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Header — editorial, asymmetric */}
-      <div className="vz-method-header" style={{
-        display: "grid", gridTemplateColumns: "1fr auto", alignItems: "end",
-        gap: 32, marginBottom: 48,
-        borderBottom: `1px solid ${subtle}`, paddingBottom: 24,
-      }}>
-        <div>
-          <h2 style={{
-            fontSize: 52, margin: 0, letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.02,
-          }}>
-            Trois temps.<br/>
-            <span style={{ color: muted, fontWeight: 400, fontStyle: "italic" }}>Une seule lecture.</span>
-          </h2>
-        </div>
-        <p style={{
-          fontSize: 14, color: muted, lineHeight: 1.6, maxWidth: 320, margin: 0,
-          paddingLeft: 24, borderLeft: `1px solid ${subtle}`,
+      {/* Header — editorial */}
+      <div className="vz-method-header" style={{ marginBottom: 48 }}>
+        <h2 style={{
+          fontSize: 52, margin: 0, letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.02,
+          textWrap: "balance",
         }}>
-          Pas de tableau croisé dynamique. Pas de jargon. Juste vos chiffres, expliqués et projetés.
-        </p>
+          Trois temps.<br/>
+          <span style={{ color: muted, fontWeight: 400, fontStyle: "italic" }}>Une seule lecture.</span>
+        </h2>
       </div>
 
       {/* Step picker — horizontal segmented timeline */}

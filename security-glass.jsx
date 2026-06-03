@@ -418,45 +418,25 @@ const SecuritySection = () => {
       <div
         className="vz-method-header"
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          alignItems: "end",
-          gap: 32,
           marginBottom: 40,
-          borderBottom: `1px solid ${subtle}`,
-          paddingBottom: 24,
         }}
       >
-        <div>
-          <h2
-            style={{
-              fontSize: "clamp(36px, 4.4vw, 52px)",
-              margin: 0,
-              letterSpacing: "-0.03em",
-              fontWeight: 600,
-              lineHeight: 1.02,
-            }}
-          >
-            Vos chiffres,{" "}
-            <span style={{ color: muted, fontWeight: 400, fontStyle: "italic" }}>
-              entre de très bonnes mains.
-            </span>
-          </h2>
-        </div>
-        <p
+        <h2
           style={{
-            fontSize: 14,
-            color: muted,
-            lineHeight: 1.6,
-            maxWidth: 340,
+            fontSize: "clamp(36px, 4.4vw, 52px)",
             margin: 0,
-            paddingLeft: 24,
-            borderLeft: `1px solid ${subtle}`,
+            letterSpacing: "-0.03em",
+            fontWeight: 600,
+            lineHeight: 1.02,
+            maxWidth: "none",
+            textWrap: "balance",
           }}
         >
-          Vous nous confiez vos données les plus sensibles. On les protège avec le
-          même niveau d'exigence qu'une banque privée — et on s'engage par écrit.
-        </p>
+          Vos chiffres,{" "}
+          <span style={{ color: muted, fontWeight: 400, fontStyle: "italic" }}>
+            entre de très bonnes mains.
+          </span>
+        </h2>
       </div>
 
       {/* 4 promesses commerciales */}

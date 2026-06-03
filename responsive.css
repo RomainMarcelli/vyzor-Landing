@@ -115,15 +115,26 @@ html, body { -webkit-text-size-adjust: 100%; }
     padding-top: 16px !important;
   }
   .vz-daf-panel {
+    padding: 28px 24px !important;
+  }
+  .vz-daf-loop-grid {
     grid-template-columns: 1fr !important;
+    gap: 28px !important;
   }
-  .vz-daf-loop {
-    border-right: none !important;
+  .vz-daf-rail {
+    display: none !important;
+  }
+  .vz-daf-step {
+    padding: 0 0 28px 0 !important;
+    border-left: none !important;
     border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-    padding: 28px 24px !important;
   }
-  .vz-daf-shaped {
-    padding: 28px 24px !important;
+  .vz-daf-step:last-child {
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+  .vz-verbatim-grid {
+    grid-template-columns: 1fr !important;
   }
 
   /* —— Footer —— */

@@ -62,9 +62,12 @@ const VyzorFooterGlass = ({ fullWidth = false }) => {
   ];
 
   // Petit badge social — carré glass avec icône monochrome
-  const SocialIcon = ({ label, path, href = "#" }) => (
+  const SocialIcon = ({ label, path, href = "#" }) => {
+    const external = /^https?:/i.test(href);
+    return (
     <a
       href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       aria-label={label}
       style={{
         width: 38, height: 38, borderRadius: 10,
@@ -95,7 +98,8 @@ const VyzorFooterGlass = ({ fullWidth = false }) => {
         {path}
       </svg>
     </a>
-  );
+    );
+  };
 
   return (
     <footer
