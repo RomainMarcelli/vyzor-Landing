@@ -334,7 +334,7 @@ const PILLARS = [
   {
     icon: "shield",
     title: "Vos données vous appartiennent",
-    sub: "Quantis ne revend, ne partage, ne monétise jamais vos chiffres. Vous restez seul propriétaire et pouvez tout exporter ou tout supprimer en un clic.",
+    sub: "Vyzor ne revend, ne partage, ne monétise jamais vos chiffres. Vous restez seul propriétaire et pouvez tout exporter ou tout supprimer en un clic.",
   },
   {
     icon: "lock",
@@ -512,4 +512,4 @@ const SecuritySection = () => {
   );
 };
 
-Object.assign(window, { SecuritySection, PILLARS, PARTNERS, CERTIFICATIONS });
+Object.assign(window, { SecuritySection, SecIcon, PILLARS, PARTNERS, CERTIFICATIONS });

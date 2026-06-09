@@ -1,4 +1,4 @@
-/* ── Quantis Design Tokens ── */
+/* ── Vyzor Design Tokens ── */
 const T = {
   bgBase: "#09090b",
   bgSurface: "#0f0f12",

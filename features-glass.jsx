@@ -225,11 +225,11 @@ const FEATURES_BY_ROLE = {
     headline: "Un diagnostic client,",
     accent: "livré en moins de 5 minutes.",
     intro:
-      "Connectez Pennylane, MyUnisoft ou Odoo — ou importez un FEC. Vyzor calcule le Quantis Score, génère le plan d'action et vous donne une vue cabinet sur tous vos dossiers.",
+      "Connectez Pennylane, MyUnisoft ou Odoo — ou importez un FEC. Vyzor calcule le Vyzor Score, génère le plan d'action et vous donne une vue cabinet sur tous vos dossiers.",
     items: [
       {
         title: "Multi-dossiers, vue cabinet consolidée",
-        sub: "Tous vos clients, leur Quantis Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic.",
+        sub: "Tous vos clients, leur Vyzor Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic.",
       },
       {
         title: "Connexion comptable native ou import FEC/PDF",
@@ -275,7 +275,7 @@ const FEATURES_BY_ROLE = {
       },
       {
         title: "Recommandation stratégique IA + plan d'action",
-        sub: "L'agent Quantis génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez.",
+        sub: "L'agent Vyzor génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez.",
       },
     ],
   },
@@ -285,10 +285,10 @@ const FEATURES_BY_ROLE = {
     headline: "Vos chiffres, expliqués.",
     accent: "Vos décisions, éclairées.",
     intro:
-      "Un Quantis Score lisible en 10 secondes, des alertes qui appellent à l'action, un assistant IA qui répond en français à vos questions business. Pas de jargon, pas de tableau croisé.",
+      "Un Vyzor Score lisible en 10 secondes, des alertes qui appellent à l'action, un assistant IA qui répond en français à vos questions business. Pas de jargon, pas de tableau croisé.",
     items: [
       {
-        title: "Quantis Score sur 100, santé en un coup d'œil",
+        title: "Vyzor Score sur 100, santé en un coup d'œil",
         sub: "Rentabilité, solvabilité, liquidité, efficacité — quatre sous-scores et un commentaire synthétique. Excellent, bon, moyen, faible : vous savez où vous en êtes.",
       },
       {

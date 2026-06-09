@@ -362,7 +362,7 @@ const ORBITAL_ROLES = {
     label: "Expert-Comptable", sub: "Cabinet", icon: "briefcase",
     tagline: "Cabinet",
     items: [
-      { tag: "Vue cabinet", icon: "layers", title: "Multi-dossiers, vue cabinet consolidée", sub: "Tous vos clients, leur Quantis Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic." },
+      { tag: "Vue cabinet", icon: "layers", title: "Multi-dossiers, vue cabinet consolidée", sub: "Tous vos clients, leur Vyzor Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic." },
       { tag: "Connexions", icon: "plug", title: "Connexion comptable native ou import FEC/PDF", sub: "Pennylane, MyUnisoft, Odoo en automatique. Tiime arrive bientôt. Sinon, FEC ou PDF : le parser V2 fait le reste." },
       { tag: "États financiers", icon: "file", title: "États financiers détaillés, lignes comptables", sub: "Compte de résultat et bilan complets avec références FP, FQ, GA. La granularité dont vous avez besoin pour vérifier." },
       { tag: "Alertes", icon: "bell", title: "Alertes proactives par dossier", sub: "EBE négatif, DSO qui dérape, runway critique : Vyzor remonte ce qui doit déclencher un appel à votre client." },
@@ -377,14 +377,14 @@ const ORBITAL_ROLES = {
       { tag: "What-If", icon: "sliders", title: "Simulation What-If sur 7 scénarios", sub: "Embauche, hausse des prix, nouvel emprunt, perte d'un client majeur. Slider −30 % à +30 %, impact temps réel sur EBITDA, point mort, CAF." },
       { tag: "Données live", icon: "sync", title: "Données live Pennylane, synchronisées en continu", sub: "Sélecteur jour / semaine / mois / trimestre / année. Indicateur de sync, nombre d'écritures. Plus de gel à fin de mois." },
       { tag: "KPIs", icon: "barChart", title: "Bibliothèque complète de KPIs financiers", sub: "BFR, DSO, DPO, DIO, gearing, capacité de remboursement, runway, liquidité générale / réduite / immédiate. Tout est calculé, tout est filtrable." },
-      { tag: "Reco IA", icon: "sparkles", title: "Recommandation stratégique IA + plan d'action", sub: "L'agent Quantis génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez." },
+      { tag: "Reco IA", icon: "sparkles", title: "Recommandation stratégique IA + plan d'action", sub: "L'agent Vyzor génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez." },
     ],
   },
   dirigeant: {
     label: "Chef d'entreprise", sub: "Dirigeant de PME", icon: "compass",
     tagline: "Décision",
     items: [
-      { tag: "Quantis Score", icon: "gauge", title: "Quantis Score sur 100, santé en un coup d'œil", sub: "Rentabilité, solvabilité, liquidité, efficacité — quatre sous-scores et un commentaire synthétique. Vous savez où vous en êtes." },
+      { tag: "Vyzor Score", icon: "gauge", title: "Vyzor Score sur 100, santé en un coup d'œil", sub: "Rentabilité, solvabilité, liquidité, efficacité — quatre sous-scores et un commentaire synthétique. Vous savez où vous en êtes." },
       { tag: "What-If", icon: "sliders", title: "Simulation What-If pour vos décisions stratégiques", sub: "« Et si j'embauche ? » « Et si je perds mon plus gros client ? » Sept scénarios, slider de variation, impact immédiat sur 6 KPIs clés." },
       { tag: "Assistant IA", icon: "message", title: "Assistant IA en français, 20 questions / jour", sub: "Posez la question business du jour : leviers BFR, hausse de prix, comparaison vs an dernier. Réponse contextualisée sur vos chiffres réels." },
       { tag: "Alertes", icon: "alert", title: "Alertes critiques + plan d'action IA", sub: "EBE négatif, trésorerie tendue : Vyzor remonte les risques et propose les actions concrètes à lancer ce mois-ci, priorisées et chiffrées." },
@@ -442,6 +442,7 @@ const FeaturesOrbital = ({
   const stageRef = React.useRef(null);
   const cardRef = React.useRef(null);
   const rotRef = React.useRef(0);
+  const tweenRef = React.useRef(null);
   const [cardPos, setCardPos] = React.useState(null);
 
   const data = ORBITAL_ROLES[role];
@@ -483,11 +484,41 @@ const FeaturesOrbital = ({
     return () => cancelAnimationFrame(raf);
   }, [autoRotate, focused, hovering, speed]);
 
+  // Amène en douceur le nœud cliqué au sommet du cercle (chemin le plus court)
+  const animateRotationTo = (target) => {
+    if (tweenRef.current) cancelAnimationFrame(tweenRef.current);
+    const start = rotRef.current;
+    const delta = ((target - start + 540) % 360) - 180;
+    const dur = 620;
+    const t0 = performance.now();
+    const ease = (x) => 1 - Math.pow(1 - x, 3);
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const v = start + delta * ease(p);
+      rotRef.current = ((v % 360) + 360) % 360;
+      setRotation(rotRef.current);
+      if (p < 1) { tweenRef.current = requestAnimationFrame(step); }
+      else { tweenRef.current = null; }
+    };
+    tweenRef.current = requestAnimationFrame(step);
+  };
+
   const handleSelect = (idx) => {
-    setExpandedIdx((cur) => (cur === idx ? null : idx));
+    if (expandedIdx === idx) {
+      setExpandedIdx(null);
+      return;
+    }
+    setExpandedIdx(idx);
+    // Rotation cible : ce nœud doit arriver au sommet (TOP_ANGLE)
+    const target = (((TOP_ANGLE - (idx / total) * 360) % 360) + 360) % 360;
+    animateRotationTo(target);
   };
 
   const closeDetail = () => setExpandedIdx(null);
+
+  React.useEffect(() => () => {
+    if (tweenRef.current) cancelAnimationFrame(tweenRef.current);
+  }, []);
 
   // Positionne la carte juste à côté du nœud cliqué (clampée dans la scène)
   React.useLayoutEffect(() => {
@@ -528,13 +559,6 @@ const FeaturesOrbital = ({
     <section id="fonctionnalites" style={{ position: "relative", marginTop: 64, marginBottom: 72 }}>
       {/* En-tête + switcher */}
       <div style={{ textAlign: "center", marginBottom: 26 }}>
-        <div style={{
-          fontFamily: '"JetBrains Mono", ui-monospace, monospace',
-          fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase",
-          color: "#f0c949", marginBottom: 16,
-        }}>
-          L'écosystème Vyzor
-        </div>
         <h2 style={{
           fontFamily: '"Inter", system-ui, sans-serif',
           fontSize: "clamp(30px, 4vw, 46px)", margin: "0 auto 14px",
@@ -543,13 +567,9 @@ const FeaturesOrbital = ({
         }}>
           Tout gravite autour de <span style={{ color: "rgba(255,255,255,0.42)" }}>votre métier.</span>
         </h2>
-        <p style={{
-          fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.55)",
-          maxWidth: 520, margin: "0 auto 26px",
-        }}>
-          Choisissez votre profil : les fonctionnalités qui comptent pour vous se mettent en orbite. Cliquez un nœud pour le découvrir.
-        </p>
-        <OrbitalSwitcher value={role} onChange={setRole} />
+        <div style={{ marginTop: 26 }}>
+          <OrbitalSwitcher value={role} onChange={setRole} />
+        </div>
       </div>
 
       {/* Scène orbitale */}
@@ -558,8 +578,6 @@ const FeaturesOrbital = ({
         className="orb-stage"
         data-focus={focused ? "1" : "0"}
         style={{ height: stageHeight }}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
         onClick={(e) => { if (e.target === e.currentTarget || e.target.classList.contains("orb-spin")) closeDetail(); }}
       >
         <div className="orb-spin">
@@ -600,6 +618,8 @@ const FeaturesOrbital = ({
                 <button
                   className="orb-node__hit"
                   onClick={(e) => { e.stopPropagation(); handleSelect(i); }}
+                  onMouseEnter={() => setHovering(true)}
+                  onMouseLeave={() => setHovering(false)}
                   aria-label={it.title}
                   aria-expanded={isActive}
                 >
@@ -647,11 +667,6 @@ const FeaturesOrbital = ({
             </button>
           </div>
         )}
-      </div>
-
-      {/* Indice */}
-      <div className="orb-hint" style={{ opacity: focused ? 0 : 1, marginTop: 6 }}>
-        {total} fonctionnalités · profil {data.label}
       </div>
     </section>
   );

@@ -149,6 +149,7 @@
   <script type="text/babel" src="glow-border.jsx"></script>
   <script type="text/babel" src="cinematic-hero-glass.jsx"></script>
   <script type="text/babel" src="variant-a.jsx"></script>
+  <script type="text/babel" src="besoin-client.jsx"></script>
   <script type="text/babel" src="features-glass.jsx"></script>
   <script type="text/babel" src="daf-coconception.jsx"></script>
   <script type="text/babel" src="security-glass.jsx"></script>
@@ -367,18 +368,18 @@
         <div style={{
           background: "#070a14",
           backgroundImage:
-            "radial-gradient(60% 40% at 15% 0%, rgba(99,102,241,0.18), transparent 60%), radial-gradient(50% 40% at 90% 10%, rgba(240,201,73,0.14), transparent 60%), radial-gradient(40% 30% at 50% 100%, rgba(45,212,191,0.10), transparent 60%)",
+            "linear-gradient(180deg, #070a14 0%, rgba(7,10,20,0) 16%), radial-gradient(60% 40% at 15% 7%, rgba(99,102,241,0.18), transparent 60%), radial-gradient(50% 40% at 90% 12%, rgba(240,201,73,0.14), transparent 60%), radial-gradient(40% 30% at 50% 100%, rgba(45,212,191,0.10), transparent 60%)",
           color: text,
           fontFamily: '"Inter", system-ui, sans-serif',
           padding: "32px 0 56px",
           position: "relative",
-          overflow: "hidden",
         }}>
           <div className="vz-page-pad" style={{
             maxWidth: 1180,
             margin: "0 auto",
             padding: "0 clamp(24px, 6vw, 96px)",
           }}>
+            <BesoinClientSection id="constat" gold={gold} text={text} muted={muted} subtle={subtle} />
             <div className="vz-reveal"><MethodologySection id="produit" gold={gold} text={text} muted={muted} subtle={subtle} /></div>
             <div className="vz-reveal"><DAFCoConception /></div>
             <div className="vz-reveal"><ExploreMore gold={gold} text={text} muted={muted} subtle={subtle} /></div>

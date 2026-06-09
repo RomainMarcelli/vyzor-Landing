@@ -1,4 +1,4 @@
-// variant-a.jsx — Premium dark (or/noir, fidèle à Quantis)
+// variant-a.jsx — Premium dark (or/noir, fidèle à Vyzor)
 
 const VariantA = () => {
   const gold = "#f0c949";

@@ -124,6 +124,51 @@
       background: rgba(255,255,255,0.10);
       color: #fff;
     }
+
+    /* CTA "Candidater à la bêta" — bordure dorée animée */
+    .vz-beta-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 30px;
+      border: none;
+      border-radius: 14px;
+      background: #0b0c10;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      z-index: 0;
+      transition: transform 220ms ease;
+    }
+    .vz-beta-cta::before,
+    .vz-beta-cta::after {
+      content: '';
+      position: absolute;
+      left: -2px; top: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border-radius: 14px;
+      background: linear-gradient(45deg, #8a6a1f, #f0c949, #fff1c2, #d99e2b, #f0c949, #8a6a1f, #f0c949, #fff1c2, #d99e2b, #f0c949);
+      background-size: 400%;
+      z-index: -1;
+      animation: vzBetaRainbow 14s linear infinite;
+    }
+    .vz-beta-cta::after { filter: blur(13px); opacity: 0.5; }
+    .vz-beta-cta:hover { transform: translateY(-2px); }
+    .vz-beta-cta:hover::after { opacity: 0.75; }
+    @keyframes vzBetaRainbow {
+      0%   { background-position: 0 0; }
+      50%  { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .vz-beta-cta::before,
+      .vz-beta-cta::after { animation: none; }
+    }
   `;
   document.head.appendChild(style);
 })();
@@ -485,11 +530,6 @@ const BetaFormGlass = () => {
             <span style={{ color: "rgba(255,255,255,0.45)" }}> à façonner Vyzor.</span>
           </h2>
         </div>
-        <div style={{
-          fontSize: 13, color: muted, lineHeight: 1.6, maxWidth: 280, textAlign: "right",
-        }}>
-          Survolez les cartes — elles s'inclinent sous le curseur.
-        </div>
       </div>
 
       {/* Deux cartes reveal côte à côte */}
@@ -569,28 +609,8 @@ const BetaFormGlass = () => {
         textAlign: "center", marginTop: 44, gap: 14,
       }}>
         <button
+          className="vz-beta-cta"
           onClick={() => setOpen(true)}
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 12,
-            padding: "16px 28px", borderRadius: 14,
-            border: "1px solid #f2d782",
-            backgroundImage: "linear-gradient(135deg,#f9e08a 0%, #ebc85b 52%, #d8ac2f 100%)",
-            color: "#1a1410", fontWeight: 600, fontSize: 15, cursor: "pointer",
-            letterSpacing: "0.01em",
-            fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
-            boxShadow: "0 14px 32px rgba(216,172,47,0.36), inset 0 1px 0 rgba(255,255,255,0.55)",
-            transition: "transform 220ms ease, box-shadow 220ms ease",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow =
-              "0 20px 40px rgba(216,172,47,0.46), inset 0 1px 0 rgba(255,255,255,0.6)";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow =
-              "0 14px 32px rgba(216,172,47,0.36), inset 0 1px 0 rgba(255,255,255,0.55)";
-          }}
         >
           Candidater à la bêta
           <span style={{ fontSize: 16, marginLeft: 2 }}>→</span>

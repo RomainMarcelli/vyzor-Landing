@@ -147,7 +147,7 @@ const DAFCoConception = () => {
           fontSize: 52, margin: 0, letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.02,
           textWrap: "balance",
         }}>
-          Conçu avec des DAF.{" "}
+          Conçu avec des experts de la finance.{" "}
           <span style={{ color: muted, fontWeight: 400, fontStyle: "italic" }}>Pas seulement pour eux.</span>
         </h2>
       </div>
