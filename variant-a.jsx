@@ -75,7 +75,7 @@ const VariantA = () => {
 
           {/* CTA */}
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 36 }}>
-            <a href="#beta" style={{
+            <a href="https://calendly.com/admin-vyzor/30min" target="_blank" rel="noopener" style={{
               display: "inline-flex", alignItems: "center", gap: 10,
               padding: "14px 22px", borderRadius: 12,
               border: "1px solid #f2d782",
@@ -347,6 +347,7 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
   const [active, setActive] = React.useState(initialActive);
   const [scrolled, setScrolled] = React.useState(false);
   const [hovered, setHovered] = React.useState(null);
+  const [menuOpen, setMenuOpen] = React.useState(false);
   const [indicator, setIndicator] = React.useState({ left: 0, width: 0, opacity: 0 });
   const itemRefs = React.useRef({});
   const trackRef = React.useRef(null);
@@ -414,7 +415,7 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
         transition: "all 320ms cubic-bezier(0.22, 1, 0.36, 1)",
       }}>
         {/* Brand — mark seul (transparent) pour s'intégrer au verre de la navbar */}
-        <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", paddingRight: 4, paddingLeft: 2 }}>
+        <a href="index.html" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", paddingRight: 4, paddingLeft: 2 }}>
           <VyzorLogo size={28} color={gold} bg="transparent" />
           <div style={{
             fontSize: 11, letterSpacing: "0.32em", color: text, fontWeight: 700,
@@ -477,7 +478,7 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
         {/* Auth + CTA */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, paddingLeft: 6 }}>
           <a href="https://app.vyzor.fr" target="_blank" rel="noopener" className="vz-nav-login" style={{
-            fontSize: 12.5, color: muted, textDecoration: "none",
+            fontSize: 12.5, color: muted, textDecoration: "none", whiteSpace: "nowrap",
             padding: "8px 12px", borderRadius: 999,
             transition: "color 200ms, background 200ms",
           }}
@@ -486,7 +487,7 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
           >
             Se connecter
           </a>
-          <a href="#beta" className="vz-nav-cta" style={{
+          <a href="https://calendly.com/admin-vyzor/30min" target="_blank" rel="noopener" className="vz-nav-cta" style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             padding: scrolled ? "8px 14px" : "8px 16px",
             borderRadius: 999,
@@ -506,7 +507,77 @@ const VyzorNav = ({ gold, text, muted, subtle }) => {
             }}/>
             Rejoindre la bêta
           </a>
+
+          {/* Burger — visible uniquement en mobile via CSS */}
+          <button
+            type="button"
+            className="vz-nav-burger"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            style={{
+              display: "none", alignItems: "center", justifyContent: "center",
+              width: 38, height: 38, flex: "0 0 auto",
+              borderRadius: 999, border: "1px solid rgba(255,255,255,0.12)",
+              background: "rgba(255,255,255,0.04)", cursor: "pointer", padding: 0,
+            }}
+          >
+            <span style={{ position: "relative", width: 16, height: 12, display: "block" }}>
+              <span style={{ position: "absolute", left: 0, right: 0, height: 2, borderRadius: 2, background: text, top: menuOpen ? 5 : 0, transform: menuOpen ? "rotate(45deg)" : "none", transition: "transform 240ms ease, top 240ms ease" }} />
+              <span style={{ position: "absolute", left: 0, right: 0, height: 2, borderRadius: 2, background: text, top: 5, opacity: menuOpen ? 0 : 1, transition: "opacity 160ms ease" }} />
+              <span style={{ position: "absolute", left: 0, right: 0, height: 2, borderRadius: 2, background: text, top: menuOpen ? 5 : 10, transform: menuOpen ? "rotate(-45deg)" : "none", transition: "transform 240ms ease, top 240ms ease" }} />
+            </span>
+          </button>
         </div>
+      </div>
+
+      {/* Panneau mobile — révèle les onglets + connexion */}
+      <div
+        className="vz-nav-mobile"
+        style={{
+          display: "none",
+          marginTop: 8,
+          borderRadius: 22,
+          background: "rgba(15,17,21,0.92)",
+          backdropFilter: "blur(18px) saturate(140%)",
+          WebkitBackdropFilter: "blur(18px) saturate(140%)",
+          border: "1px solid rgba(255,255,255,0.10)",
+          boxShadow: "0 18px 50px rgba(0,0,0,0.5)",
+          padding: 8,
+          overflow: "hidden",
+          maxHeight: menuOpen ? 420 : 0,
+          opacity: menuOpen ? 1 : 0,
+          pointerEvents: menuOpen ? "auto" : "none",
+          transition: "max-height 320ms cubic-bezier(0.22,1,0.36,1), opacity 240ms ease, padding 320ms ease",
+          paddingTop: menuOpen ? 8 : 0,
+          paddingBottom: menuOpen ? 8 : 0,
+        }}
+      >
+        {items.map((it) => (
+          <a
+            key={it.id}
+            href={it.external ? it.href : `#${it.id}`}
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block", padding: "13px 16px", borderRadius: 14,
+              fontSize: 15, fontWeight: 500, color: active === it.id ? "#f5e0a0" : text,
+              textDecoration: "none",
+            }}
+          >
+            {it.label}
+          </a>
+        ))}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.08)", margin: "6px 12px" }} />
+        <a
+          href="https://app.vyzor.fr" target="_blank" rel="noopener"
+          onClick={() => setMenuOpen(false)}
+          style={{
+            display: "block", padding: "13px 16px", borderRadius: 14,
+            fontSize: 15, fontWeight: 500, color: muted, textDecoration: "none",
+          }}
+        >
+          Se connecter
+        </a>
       </div>
     </nav>
   );

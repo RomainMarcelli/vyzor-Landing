@@ -610,7 +610,7 @@ const BetaFormGlass = () => {
       }}>
         <button
           className="vz-beta-cta"
-          onClick={() => setOpen(true)}
+          onClick={() => window.open("https://calendly.com/admin-vyzor/30min", "_blank", "noopener")}
         >
           Candidater à la bêta
           <span style={{ fontSize: 16, marginLeft: 2 }}>→</span>

@@ -14,6 +14,7 @@ const GooeyText = ({
 }) => {
   const text1Ref = React.useRef(null);
   const text2Ref = React.useRef(null);
+  const blendRef = React.useRef(null);
 
   React.useEffect(() => {
     if (!text1Ref.current || !text2Ref.current) return;
@@ -40,6 +41,8 @@ const GooeyText = ({
       if (!t1 || !t2) return;
       t2.style.filter = ""; t2.style.opacity = "100%";
       t1.style.filter = ""; t1.style.opacity = "0%";
+      // Mot stabilisé : on retire le seuil gooey pour un rendu net (anti-crénelage natif).
+      if (blendRef.current) blendRef.current.style.filter = "none";
     };
 
     const doMorph = () => {
@@ -47,6 +50,8 @@ const GooeyText = ({
       cooldown = 0;
       let fraction = morph / morphTime;
       if (fraction > 1) { cooldown = cooldownTime; fraction = 1; }
+      // En cours de morph : on réactive le seuil gooey pour la fusion des calques.
+      if (blendRef.current) blendRef.current.style.filter = `url(#${filterId})`;
       setMorph(fraction);
     };
 
@@ -94,7 +99,7 @@ const GooeyText = ({
           </filter>
         </defs>
       </svg>
-      <div style={{
+      <div ref={blendRef} style={{
         position: "relative", width: "100%", height: "100%",
         display: "flex", alignItems: "center", justifyContent: "center",
         filter: `url(#${filterId})`,

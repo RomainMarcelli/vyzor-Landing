@@ -209,7 +209,7 @@ function SelectField({ label, icon, value, onChange, options }) {
 /* ── Method tabs — segmented liquid-glass control ── */
 function MethodTabs({ value, onChange, methods }) {
   return (
-    <div style={{
+    <div className="calc-seg-tabs" style={{
       display: "grid",
       gridTemplateColumns: `repeat(${methods.length}, 1fr)`,
       gap: 6,

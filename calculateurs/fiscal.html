@@ -386,7 +386,7 @@ function App() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 32 }}>
+        <div className="calc-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 32 }}>
           <SlabCard>
             <div style={{ color: T.textMuted, fontSize: 11, textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 20 }}>Paramètres</div>
             <Slider label="Chiffre d'affaires HT" value={ca} onChange={setCa} min={10000} max={500000} step={5000} unit=" €" icon="euro" />

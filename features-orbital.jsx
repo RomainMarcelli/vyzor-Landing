@@ -659,7 +659,7 @@ const FeaturesOrbital = ({
             </div>
             <h3 className="orb-detail__title">{items[expandedIdx].title}</h3>
             <p className="orb-detail__sub">{items[expandedIdx].sub}</p>
-            <button className="orb-detail__cta" onClick={openVyzorContact}>
+            <button className="orb-detail__cta" onClick={() => window.open("https://calendly.com/admin-vyzor/30min", "_blank", "noopener")}>
               Rejoindre la bêta
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />

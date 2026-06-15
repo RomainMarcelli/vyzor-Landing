@@ -89,6 +89,33 @@ const liquidGlass = {
       box-shadow: 0 4px 14px rgba(197,160,89,0.45);
       cursor: pointer;
     }
+
+    /* ── Responsive : nav flottante des calculateurs ── */
+    @media (max-width: 620px) {
+      .vz-cnav { left: 12px !important; right: 12px !important; transform: none !important; }
+      .vz-cnav-pill {
+        width: 100% !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        padding: 6px 6px 6px 12px !important;
+      }
+      .vz-cnav-word, .vz-cnav-sep { display: none !important; }
+      .vz-cnav-link-produit { display: none !important; }
+      .vz-cnav-link { padding: 8px 10px !important; font-size: 12px !important; }
+      .vz-cnav-cta { padding: 8px 14px !important; font-size: 12px !important; }
+    }
+    @media (max-width: 380px) {
+      .vz-cnav-links { display: none !important; }
+    }
+
+    /* ── Responsive : grilles fixes des sous-pages calculateurs ── */
+    @media (max-width: 600px) {
+      /* Sélecteur de méthodes (valorisation) : 2 colonnes + retour ligne */
+      .calc-seg-tabs { grid-template-columns: 1fr 1fr !important; }
+      .calc-seg-tabs button { white-space: normal !important; padding: 11px 8px !important; font-size: 12px !important; }
+      /* Grilles 2 colonnes génériques (fiscal : paramètres / résultats) */
+      .calc-2col { grid-template-columns: 1fr !important; }
+    }
   `;
   document.head.appendChild(s);
 })();
@@ -169,11 +196,11 @@ function VyzorTopNav({ current = "hub" }) {
   const goldGrad = `linear-gradient(135deg, ${T.brandGold} 0%, ${T.brandGoldDark} 100%)`;
 
   return (
-    <nav style={{
+    <nav className="vz-cnav" style={{
       position: "fixed", top: 18, left: "50%", transform: "translateX(-50%)",
       zIndex: 60, transition: "all 320ms cubic-bezier(0.22,1,0.36,1)",
     }}>
-      <div style={{
+      <div className="vz-cnav-pill" style={{
         display: "flex", alignItems: "center",
         gap: scrolled ? 10 : 18,
         padding: scrolled ? "6px 6px 6px 14px" : "8px 8px 8px 18px",
@@ -193,7 +220,7 @@ function VyzorTopNav({ current = "hub" }) {
               <path d="M6855 6910 c-3 -5 14 -22 37 -38 111 -76 188 -197 208 -326 29 -185 -56 -383 -385 -891 -68 -105 -652 -1041 -686 -1099 -19 -33 -59 -96 -87 -139 -29 -43 -52 -80 -52 -82 0 -6 -353 -571 -467 -748 -40 -62 -82 -130 -94 -152 -12 -22 -58 -76 -103 -121 -118 -117 -232 -150 -362 -105 -64 23 -57 32 -80 -108 -21 -129 -15 -233 21 -354 163 -560 700 -615 1090 -112 56 72 250 379 414 655 35 58 73 121 86 140 26 40 275 444 409 665 51 83 113 183 139 223 26 40 47 74 47 76 0 4 145 242 260 426 86 139 237 384 348 565 57 94 127 208 156 255 214 345 244 404 267 520 43 217 -77 414 -291 478 -83 25 -472 149 -663 212 -114 37 -209 64 -212 60z"/>
             </g>
           </svg>
-          <div style={{
+          <div className="vz-cnav-word" style={{
             fontSize: 11, letterSpacing: "0.32em", color: "#fff", fontWeight: 700,
             overflow: "hidden",
             maxWidth: scrolled ? 0 : 80,
@@ -203,16 +230,16 @@ function VyzorTopNav({ current = "hub" }) {
           }}>VYZOR</div>
         </a>
 
-        <span style={{
+        <span className="vz-cnav-sep" style={{
           width: 1, height: 18, background: "rgba(255,255,255,0.10)",
           opacity: scrolled ? 0 : 1, transition: "opacity 200ms",
         }}/>
 
-        <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 2 }}>
+        <div className="vz-cnav-links" style={{ position: "relative", display: "flex", alignItems: "center", gap: 2 }}>
           {items.map((it) => {
             const active = current === it.id;
             return (
-              <a key={it.id} href={it.href} style={{
+              <a key={it.id} href={it.href} className={"vz-cnav-link vz-cnav-link-" + it.id} style={{
                 position: "relative",
                 padding: "8px 14px",
                 fontSize: 12.5,
@@ -233,11 +260,11 @@ function VyzorTopNav({ current = "hub" }) {
           })}
         </div>
 
-        <span style={{
+        <span className="vz-cnav-sep" style={{
           width: 1, height: 18, background: "rgba(255,255,255,0.10)",
         }}/>
 
-        <a href="../index.html?contact=1#beta" data-contact style={{
+        <a href="../index.html?contact=1#beta" data-contact className="vz-cnav-cta" style={{
           padding: "8px 14px",
           fontSize: 12.5,
           fontWeight: 600,

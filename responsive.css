@@ -158,6 +158,26 @@ html, body { -webkit-text-size-adjust: 100%; }
 }
 
 /* ============================================================
+   NAV COLLAPSE  (<= 900px) — bascule en menu burger
+   ============================================================ */
+@media (max-width: 900px) {
+  .vz-nav-wrap {
+    left: 12px !important;
+    right: 12px !important;
+    transform: none !important;
+    width: auto !important;
+  }
+  .vz-nav-wrap > div {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+  /* on masque les onglets inline + connexion, on garde logo + CTA + burger */
+  .vz-nav-divider, .vz-nav-links, .vz-nav-login { display: none !important; }
+  .vz-nav-burger { display: inline-flex !important; }
+  .vz-nav-mobile { display: block !important; }
+}
+
+/* ============================================================
    MOBILE LARGE  (<= 720px)
    ============================================================ */
 @media (max-width: 720px) {

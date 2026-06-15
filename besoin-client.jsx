@@ -256,7 +256,7 @@ const BesoinClientSection = ({ id = "constat", gold, text, muted, subtle }) => {
             onMouseOver={(e) => { e.currentTarget.style.borderColor = "rgba(240,201,73,0.4)"; e.currentTarget.style.color = gold; }}
             onMouseOut={(e) => { e.currentTarget.style.borderColor = subtle; e.currentTarget.style.color = text; }}
           >Voir la méthode</a>
-          <a href="#beta" style={{
+          <a href="https://calendly.com/admin-vyzor/30min" target="_blank" rel="noopener" style={{
             display: "inline-flex", alignItems: "center", gap: 9,
             padding: "12px 20px", borderRadius: 999,
             border: "1px solid #f2d782", backgroundImage: VZ_GOLD_GRAD,
