@@ -347,6 +347,8 @@ const ORB_ICONS = {
   message: (<><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" /></>),
   alert: (<><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></>),
   wallet: (<><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></>),
+  mail: (<><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 6-10 7L2 6" /></>),
+  target: (<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.4" /></>),
 };
 
 const OrbIcon = ({ name, size = 22 }) => (
@@ -362,11 +364,11 @@ const ORBITAL_ROLES = {
     label: "Expert-Comptable", sub: "Cabinet", icon: "briefcase",
     tagline: "Cabinet",
     items: [
-      { tag: "Vue cabinet", icon: "layers", title: "Multi-dossiers, vue cabinet consolidée", sub: "Tous vos clients, leur Vyzor Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic." },
-      { tag: "Connexions", icon: "plug", title: "Connexion comptable native ou import FEC/PDF", sub: "Pennylane, MyUnisoft, Odoo en automatique. Tiime arrive bientôt. Sinon, FEC ou PDF : le parser V2 fait le reste." },
-      { tag: "États financiers", icon: "file", title: "États financiers détaillés, lignes comptables", sub: "Compte de résultat et bilan complets avec références FP, FQ, GA. La granularité dont vous avez besoin pour vérifier." },
-      { tag: "Alertes", icon: "bell", title: "Alertes proactives par dossier", sub: "EBE négatif, DSO qui dérape, runway critique : Vyzor remonte ce qui doit déclencher un appel à votre client." },
-      { tag: "Assistant IA", icon: "sparkles", title: "Assistant IA pour diagnostic rapide", sub: "« Pourquoi l'EBITDA est-il négatif ce trimestre ? » — réponse contextualisée sur les chiffres du dossier ouvert." },
+      { tag: "Vue cabinet", icon: "layers", title: "Vue cabinet multi-dossiers", sub: "Tous vos clients, leur Vyzor Score, leurs alertes rouges, sur un seul écran. Switch dossier en un clic." },
+      { tag: "Connexions", icon: "plug", title: "Connexion comptable & import FEC", sub: "Pennylane, MyUnisoft, Odoo en automatique. Tiime arrive bientôt. Sinon, FEC ou PDF : le parser V2 fait le reste." },
+      { tag: "États financiers", icon: "file", title: "États financiers détaillés", sub: "Compte de résultat et bilan complets avec références FP, FQ, GA. La granularité dont vous avez besoin pour vérifier." },
+      { tag: "Alertes", icon: "bell", title: "Alertes par dossier", sub: "EBE négatif, DSO qui dérape, runway critique : Vyzor remonte ce qui doit déclencher un appel à votre client." },
+      { tag: "Assistant IA", icon: "sparkles", title: "Assistant IA de diagnostic", sub: "« Pourquoi l'EBITDA est-il négatif ce trimestre ? » — réponse contextualisée sur les chiffres du dossier ouvert." },
     ],
   },
   daf: {
@@ -374,21 +376,26 @@ const ORBITAL_ROLES = {
     tagline: "Pilotage",
     items: [
       { tag: "Dashboards", icon: "dashboard", title: "Tableaux de bord personnalisables", sub: "Création de valeur, investissement, financement, rentabilité, trésorerie — ou vos propres onglets. Drag & drop des widgets." },
-      { tag: "What-If", icon: "sliders", title: "Simulation What-If sur 7 scénarios", sub: "Embauche, hausse des prix, nouvel emprunt, perte d'un client majeur. Slider −30 % à +30 %, impact temps réel sur EBITDA, point mort, CAF." },
-      { tag: "Données live", icon: "sync", title: "Données live Pennylane, synchronisées en continu", sub: "Sélecteur jour / semaine / mois / trimestre / année. Indicateur de sync, nombre d'écritures. Plus de gel à fin de mois." },
-      { tag: "KPIs", icon: "barChart", title: "Bibliothèque complète de KPIs financiers", sub: "BFR, DSO, DPO, DIO, gearing, capacité de remboursement, runway, liquidité générale / réduite / immédiate. Tout est calculé, tout est filtrable." },
-      { tag: "Reco IA", icon: "sparkles", title: "Recommandation stratégique IA + plan d'action", sub: "L'agent Vyzor génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez." },
+      { tag: "What-If", icon: "sliders", title: "Simulation What-If", sub: "Embauche, hausse des prix, nouvel emprunt, perte d'un client majeur. Slider −30 % à +30 %, impact temps réel sur EBITDA, point mort, CAF." },
+      { tag: "Données live", icon: "sync", title: "Données live Pennylane", sub: "Sélecteur jour / semaine / mois / trimestre / année. Indicateur de sync, nombre d'écritures. Plus de gel à fin de mois." },
+      { tag: "KPIs", icon: "barChart", title: "Bibliothèque de KPIs financiers", sub: "BFR, DSO, DPO, DIO, gearing, capacité de remboursement, runway, liquidité générale / réduite / immédiate. Tout est calculé, tout est filtrable." },
+      { tag: "Reco IA", icon: "sparkles", title: "Recommandations & plan d'action", sub: "L'agent Vyzor génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez." },
+      { tag: "Compte-rendu email", icon: "mail", title: "Compte-rendu financier par email", sub: "Depuis n'importe quel dashboard, générez un email contextuel sur les KPI affichés, choisissez le ton, puis envoyez-le depuis votre Gmail — rapport PDF joint, traçé dans vos « Envoyés »." },
+      { tag: "Budget", icon: "target", title: "Budget prévisionnel vs réalisé", sub: "Import du budget par exercice, comparaison poste par poste avec les mêmes formules de KPI. Bascule « N-1 ↔ Budget » sur les écrans KPI et la Synthèse." },
+      { tag: "Trésorerie", icon: "wallet", title: "Trésorerie temps réel", sub: "Burn rate, cash-flow net, runway, projection à 30/60/90 jours, jours critiques et score de santé trésorerie. Connexion bancaire Bridge ou import Excel." },
     ],
   },
   dirigeant: {
     label: "Chef d'entreprise", sub: "Dirigeant de PME", icon: "compass",
     tagline: "Décision",
     items: [
-      { tag: "Vyzor Score", icon: "gauge", title: "Vyzor Score sur 100, santé en un coup d'œil", sub: "Rentabilité, solvabilité, liquidité, efficacité — quatre sous-scores et un commentaire synthétique. Vous savez où vous en êtes." },
-      { tag: "What-If", icon: "sliders", title: "Simulation What-If pour vos décisions stratégiques", sub: "« Et si j'embauche ? » « Et si je perds mon plus gros client ? » Sept scénarios, slider de variation, impact immédiat sur 6 KPIs clés." },
-      { tag: "Assistant IA", icon: "message", title: "Assistant IA en français, 20 questions / jour", sub: "Posez la question business du jour : leviers BFR, hausse de prix, comparaison vs an dernier. Réponse contextualisée sur vos chiffres réels." },
-      { tag: "Alertes", icon: "alert", title: "Alertes critiques + plan d'action IA", sub: "EBE négatif, trésorerie tendue : Vyzor remonte les risques et propose les actions concrètes à lancer ce mois-ci, priorisées et chiffrées." },
-      { tag: "Cash live", icon: "wallet", title: "Cash temps réel via connexion bancaire", sub: "Open Banking PSD2 via Bridge : trésorerie nette, burn rate, runway. Vous voyez vivre votre cash, pas une photo d'il y a trois mois." },
+      { tag: "Vyzor Score", icon: "gauge", title: "Vyzor Score sur 100", sub: "Rentabilité, solvabilité, liquidité, efficacité — quatre sous-scores et un commentaire synthétique. Vous savez où vous en êtes." },
+      { tag: "What-If", icon: "sliders", title: "Simulation What-If", sub: "« Et si j'embauche ? » « Et si je perds mon plus gros client ? » Sept scénarios, slider de variation, impact immédiat sur 6 KPIs clés." },
+      { tag: "Assistant IA", icon: "message", title: "Assistant IA en français", sub: "Posez la question business du jour : leviers BFR, hausse de prix, comparaison vs an dernier. Réponse contextualisée sur vos chiffres réels." },
+      { tag: "Alertes", icon: "alert", title: "Alertes & plan d'action", sub: "EBE négatif, trésorerie tendue : Vyzor remonte les risques et propose les actions concrètes à lancer ce mois-ci, priorisées et chiffrées." },
+      { tag: "Cash live", icon: "wallet", title: "Cash en temps réel", sub: "Open Banking PSD2 via Bridge ou import Excel : trésorerie nette, burn rate, runway, projection 30/60/90 jours et score de santé. Vous voyez vivre votre cash, pas une photo d'il y a trois mois." },
+      { tag: "Compte-rendu email", icon: "mail", title: "Compte-rendu par email", sub: "L'IA rédige votre compte-rendu financier à partir de vos KPI. Vous le relisez et l'envoyez depuis votre messagerie — ton au choix : professionnel, chaleureux ou concis, PDF joint." },
+      { tag: "Budget", icon: "target", title: "Budget prévisionnel vs réalisé", sub: "Importez votre budget de l'année et suivez l'écart au réel poste par poste. Une référence de comparaison bien plus parlante que le simple N-1." },
     ],
   },
 };

@@ -247,6 +247,14 @@ const FEATURES_BY_ROLE = {
         title: "Assistant IA pour diagnostic rapide",
         sub: "« Pourquoi l'EBITDA est-il négatif ce trimestre ? » — réponse contextualisée sur les chiffres du dossier ouvert.",
       },
+      {
+        title: "Compte-rendu client par email, rédigé par l'IA",
+        sub: "En un clic, l'IA rédige un compte-rendu à partir des KPI du dossier. Vous le relisez, l'ajustez, puis l'envoyez depuis votre propre messagerie — rapport PDF en pièce jointe.",
+      },
+      {
+        title: "Budget prévisionnel vs réalisé",
+        sub: "Importez le budget Excel de votre client par exercice et comparez le réel au budget, poste par poste — plus seulement N vs N-1.",
+      },
     ],
   },
   daf: {
@@ -277,6 +285,18 @@ const FEATURES_BY_ROLE = {
         title: "Recommandation stratégique IA + plan d'action",
         sub: "L'agent Vyzor génère un narratif et des actions concrètes — relance commerciale ciblée, optimisation BFR. Vous validez, vous exécutez.",
       },
+      {
+        title: "Compte-rendu financier par email, rédigé par l'IA",
+        sub: "Depuis n'importe quel dashboard, générez un email contextuel sur les KPI affichés, choisissez le ton, puis envoyez-le depuis votre Gmail — rapport PDF joint, tracé dans vos « Envoyés ».",
+      },
+      {
+        title: "Budget prévisionnel vs réalisé",
+        sub: "Import du budget par exercice, comparaison poste par poste avec les mêmes formules de KPI. Bascule « N-1 ↔ Budget » sur les écrans KPI et la Synthèse.",
+      },
+      {
+        title: "Trésorerie & cash-flow temps réel",
+        sub: "Burn rate, cash-flow net, runway, projection à 30/60/90 jours et score de santé trésorerie. Connexion bancaire Bridge ou import Excel.",
+      },
     ],
   },
   dirigeant: {
@@ -305,7 +325,15 @@ const FEATURES_BY_ROLE = {
       },
       {
         title: "Cash temps réel via connexion bancaire",
-        sub: "Open Banking PSD2 via Bridge : trésorerie nette, burn rate, runway. Vous voyez vivre votre cash, pas une photo d'il y a trois mois.",
+        sub: "Open Banking PSD2 via Bridge ou import Excel : trésorerie nette, burn rate, runway, projection 30/60/90 jours et score de santé. Vous voyez vivre votre cash, pas une photo d'il y a trois mois.",
+      },
+      {
+        title: "Compte-rendu par email en un clic",
+        sub: "L'IA rédige votre compte-rendu financier à partir de vos KPI. Vous le relisez et l'envoyez depuis votre messagerie — ton au choix : professionnel, chaleureux ou concis, PDF joint.",
+      },
+      {
+        title: "Budget prévisionnel vs réalisé",
+        sub: "Importez votre budget de l'année et suivez l'écart au réel poste par poste. Une référence de comparaison bien plus parlante que le simple N-1.",
       },
     ],
   },

@@ -590,8 +590,12 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       idx: "01",
       kicker: "Passé",
       h: "Analysez ce qui s'est passé",
-      d: "Vyzor importe votre Excel comptable, valide la cohérence et calcule 24 ratios de référence. Vous voyez immédiatement les points forts et les zones de tension.",
-      chips: ["Import", "Ratios", "Tendances"],
+      d: "Glissez votre Excel comptable ou un FEC : Vyzor valide la cohérence et fait parler vos chiffres.",
+      features: [
+        { ic: "import", t: "Import Excel ou FEC", s: "Le parser valide la cohérence — aucune saisie manuelle." },
+        { ic: "ratios", t: "24 ratios de référence", s: "Marge, BFR, DSO, endettement… calculés automatiquement." },
+        { ic: "trend", t: "Tendances sur 12 mois", s: "Points forts et zones de tension repérés d'un coup d'œil." },
+      ],
       stat: { v: "24", l: "ratios calculés" },
       preview: "past",
     },
@@ -599,8 +603,12 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       idx: "02",
       kicker: "Présent",
       h: "Comprenez où vous en êtes",
-      d: "Un Vyzor Score sur 100 et un diagnostic en français. Trésorerie, marge, BFR, endettement : tout est lu pour vous, avec les seuils du secteur.",
-      chips: ["Score", "Alertes", "Benchmark"],
+      d: "Un diagnostic en français, lu pour vous avec les seuils de votre secteur.",
+      features: [
+        { ic: "score", t: "Vyzor Score sur 100", s: "Trésorerie, marge, BFR, endettement résumés en un chiffre." },
+        { ic: "budget", t: "Budget vs réalisé", s: "Comparé à votre prévisionnel, pas seulement au N-1." },
+        { ic: "alert", t: "Alertes seuils secteur", s: "EBE négatif, trésorerie tendue : remontés au bon moment." },
+      ],
       stat: { v: "/100", l: "Vyzor Score" },
       preview: "present",
     },
@@ -608,8 +616,12 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       idx: "03",
       kicker: "Futur",
       h: "Projetez les 90 prochains jours",
-      d: "Trois scénarios (prudent, médian, optimiste), simulations d'impact et recommandations actionnables. De la donnée à la décision.",
-      chips: ["Scénarios", "Projections", "Plan d'action"],
+      d: "De la donnée à la décision partagée, en trois gestes concrets.",
+      features: [
+        { ic: "whatif", t: "Simulation What-If", s: "7 scénarios, impact temps réel sur vos KPI." },
+        { ic: "plan", t: "Plan d'action IA", s: "Des recommandations concrètes, priorisées et chiffrées." },
+        { ic: "mail", t: "Compte-rendu IA par email", s: "Rédigé pour vous, envoyé en un clic depuis votre messagerie." },
+      ],
       stat: { v: "90j", l: "horizon de projection" },
       preview: "future",
     },
@@ -649,14 +661,25 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
       onMouseLeave={() => setPaused(false)}
     >
       {/* Header — editorial */}
-      <div className="vz-method-header" style={{ marginBottom: 48 }}>
+      <div className="vz-method-header" style={{ marginBottom: 48, maxWidth: 760 }}>
+        <div style={{
+          fontSize: 11, letterSpacing: "0.32em", textTransform: "uppercase",
+          fontWeight: 700, color: gold, marginBottom: 16,
+        }}>Le produit · ce que Vyzor fait</div>
         <h2 style={{
           fontSize: 52, margin: 0, letterSpacing: "-0.03em", fontWeight: 600, lineHeight: 1.02,
           textWrap: "balance",
         }}>
-          Trois temps.<br/>
+          Trois temps.{" "}
           <span style={{ color: muted, fontWeight: 400, fontStyle: "italic" }}>Une seule lecture.</span>
         </h2>
+        <p style={{
+          fontSize: 18, lineHeight: 1.6, color: muted, marginTop: 20,
+          maxWidth: 680, textWrap: "pretty",
+        }}>
+          De votre Excel comptable à un plan d'action partagé : voici, étape par étape,{" "}
+          <span style={{ color: text }}>ce que Vyzor fait concrètement</span> avec vos chiffres.
+        </p>
       </div>
 
       {/* Step picker — horizontal segmented timeline */}
@@ -735,7 +758,7 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
         minHeight: 360,
       }}>
         {/* Left: copy */}
-        <div style={{ padding: "40px 44px", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: `1px solid ${subtle}` }}>
+        <div style={{ padding: "40px 44px", display: "flex", flexDirection: "column", justifyContent: "flex-start", borderRight: `1px solid ${subtle}` }}>
           <div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 18 }}>
               <span className="vz-method-num" style={{
@@ -752,20 +775,31 @@ const MethodologySection = ({ id, gold, text, muted, subtle }) => {
               fontSize: 28, margin: 0, letterSpacing: "-0.02em", fontWeight: 600, lineHeight: 1.15,
               maxWidth: 460,
             }}>{cur.h}</h3>
-            <p style={{ fontSize: 15, color: muted, lineHeight: 1.65, marginTop: 16, maxWidth: 480 }}>
+            <p style={{ fontSize: 15, color: muted, lineHeight: 1.6, marginTop: 16, maxWidth: 480 }}>
               {cur.d}
             </p>
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28 }}>
-            {cur.chips.map((c) => (
-              <span key={c} style={{
-                fontSize: 11, fontFamily: 'inherit', fontWeight: 500,
-                padding: "6px 12px", borderRadius: 999,
-                background: "rgba(255,255,255,0.03)",
-                border: `1px solid ${subtle}`, color: muted, letterSpacing: "0.14em",
-                textTransform: "uppercase",
-              }}>{c}</span>
+          {/* Ce que ça fait concrètement — features explicites */}
+          <div key={`feat-${active}`} className="vz-method-features" style={{ marginTop: 24, display: "flex", flexDirection: "column" }}>
+            {cur.features.map((f, i) => (
+              <div key={f.t} style={{
+                display: "flex", gap: 14, alignItems: "flex-start",
+                padding: "14px 0",
+                borderTop: `1px solid ${subtle}`,
+                animation: `featRiseMethod 420ms cubic-bezier(0.22,1,0.36,1) ${i * 70}ms both`,
+              }}>
+                <span style={{
+                  flexShrink: 0, width: 34, height: 34, borderRadius: 10,
+                  display: "grid", placeItems: "center",
+                  background: "rgba(240,201,73,0.08)", border: "1px solid rgba(240,201,73,0.22)",
+                  color: gold,
+                }}><MethodFeatureIcon name={f.ic} /></span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: text, letterSpacing: "-0.01em" }}>{f.t}</div>
+                  <div style={{ fontSize: 13, lineHeight: 1.45, color: muted, marginTop: 2, textWrap: "pretty" }}>{f.s}</div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -966,4 +1000,41 @@ const MethodPreview = ({ kind, gold, muted, subtle, text }) => {
   );
 };
 
-Object.assign(window, { VariantA, BetaForm, VyzorNav, MethodologySection, MethodPreview });
+// —— Petites icônes 1.6px pour les features explicites de la méthodologie ——
+const MethodFeatureIcon = ({ name, size = 17 }) => {
+  const p = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true };
+  switch (name) {
+    case "import":
+      return (<svg {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>);
+    case "ratios":
+      return (<svg {...p}><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><rect x="14" y="14" width="7" height="7" rx="1.4"/></svg>);
+    case "trend":
+      return (<svg {...p}><path d="M3 17l6-6 4 4 7-7"/><path d="M17 8h4v4"/></svg>);
+    case "score":
+      return (<svg {...p}><path d="M5 18a9 9 0 1 1 14 0"/><path d="M12 14l3.5-3.5"/><circle cx="12" cy="14" r="1.4"/></svg>);
+    case "budget":
+      return (<svg {...p}><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="9"/></svg>);
+    case "alert":
+      return (<svg {...p}><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>);
+    case "whatif":
+      return (<svg {...p}><line x1="4" y1="8" x2="20" y2="8"/><circle cx="9" cy="8" r="2.3"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="15" cy="16" r="2.3"/></svg>);
+    case "plan":
+      return (<svg {...p}><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="m4 5 1.2 1.4L7.5 4"/><path d="m4 11 1.2 1.4L7.5 10"/><path d="m4 17 1.2 1.4L7.5 16"/></svg>);
+    case "mail":
+      return (<svg {...p}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>);
+    default:
+      return (<svg {...p}><circle cx="12" cy="12" r="9"/></svg>);
+  }
+};
+
+(function injectMethodFeatureStyles() {
+  if (typeof document === "undefined") return;
+  if (document.getElementById("method-feature-styles")) return;
+  const s = document.createElement("style");
+  s.id = "method-feature-styles";
+  s.textContent = `@keyframes featRiseMethod { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .vz-method-features > div { animation: none !important; } }`;
+  document.head.appendChild(s);
+})();
+
+Object.assign(window, { VariantA, BetaForm, VyzorNav, MethodologySection, MethodPreview, MethodFeatureIcon });

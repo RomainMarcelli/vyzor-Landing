@@ -343,13 +343,13 @@ const PILLARS = [
   },
   {
     icon: "eyeOff",
-    title: "Aucune IA ne s'entraîne sur vos chiffres",
-    sub: "Nos modèles d'intelligence artificielle lisent vos données pour vous répondre — jamais pour s'entraîner. Vos chiffres ne nourrissent aucun modèle tiers.",
+    title: "Anonymisé avant toute analyse par l'IA",
+    sub: "Avant d'être transmis à l'IA, le nom de votre entreprise et ceux des personnes sont remplacés par des libellés anonymes, puis restaurés ensuite. L'IA ne voit jamais qui vous êtes — et ne s'entraîne jamais sur vos chiffres.",
   },
   {
     icon: "hand",
     title: "Conforme RGPD, en toute transparence",
-    sub: "Droit d'accès, de rectification et d'effacement garantis. Registre des traitements à jour, réversibilité totale et export complet de vos données à tout moment.",
+    sub: "Droit d'accès, de rectification et d'effacement garantis. Registre des traitements à jour, réversibilité totale et export complet à tout moment. Et nos journaux techniques ne conservent jamais vos montants financiers.",
   },
 ];
 

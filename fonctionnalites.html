@@ -31,7 +31,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="responsive.css" />
   <style>
     :root {
@@ -119,6 +119,12 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://vyzor.fr/"},{"@type":"ListItem","position":2,"name":"Fonctionnalités","item":"https://vyzor.fr/fonctionnalites.html"}]}</script>
+  <!-- SEO complémentaire -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+  <link rel="alternate" hreflang="fr-FR" href="https://vyzor.fr/fonctionnalites.html" />
+  <link rel="alternate" hreflang="x-default" href="https://vyzor.fr/fonctionnalites.html" />
+  <link rel="manifest" href="/site.webmanifest" />
 </head>
 <body>
   <div id="root"></div>
@@ -135,17 +141,12 @@
   <script type="text/babel" src="glow-border.jsx"></script>
   <script type="text/babel" src="variant-a.jsx"></script>
   <script type="text/babel" src="features-orbital.jsx"></script>
+  <script type="text/babel" src="features-bento.jsx"></script>
   <script type="text/babel" src="beta-glass.jsx"></script>
   <script type="text/babel" src="footer-glass.jsx"></script>
 
   <script type="text/babel">
-    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-      "autoRotate": false,
-      "speed": 0.24,
-      "radius": 250,
-      "showRing": true,
-      "labelsMode": "always"
-    }/*EDITMODE-END*/;
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{}/*EDITMODE-END*/;
 
     const App = () => {
       const gold = "#f0c949";
@@ -199,13 +200,7 @@
               padding: "0 clamp(24px, 6vw, 96px)",
             }}>
               <div className="vz-reveal">
-                <FeaturesOrbital
-                  autoRotate={t.autoRotate}
-                  speed={Number(t.speed)}
-                  radius={Number(t.radius)}
-                  showRing={t.showRing}
-                  labelsMode={t.labelsMode}
-                />
+                <FeaturesBento />
               </div>
               <div className="vz-reveal"><BetaFormGlass /></div>
             </div>
@@ -216,19 +211,11 @@
           </div>
 
           <TweaksPanel title="Tweaks">
-            <TweakSection label="Orbite" />
-            <TweakToggle label="Rotation auto" value={t.autoRotate}
-              onChange={(v) => setTweak("autoRotate", v)} />
-            <TweakSlider label="Vitesse" value={t.speed} min={0.02} max={0.24} step={0.02}
-              onChange={(v) => setTweak("speed", v)} />
-            <TweakSlider label="Rayon" value={t.radius} min={150} max={250} step={5} unit="px"
-              onChange={(v) => setTweak("radius", v)} />
-            <TweakSection label="Affichage" />
-            <TweakToggle label="Anneau visible" value={t.showRing}
-              onChange={(v) => setTweak("showRing", v)} />
-            <TweakRadio label="Libellés" value={t.labelsMode}
-              options={[{ value: "always", label: "Toujours" }, { value: "hover", label: "Au focus" }]}
-              onChange={(v) => setTweak("labelsMode", v)} />
+            <TweakSection label="Section" />
+            <p style={{ fontSize: 12, lineHeight: 1.5, color: "rgba(255,255,255,0.5)", margin: "4px 2px 0" }}>
+              Grille éditoriale « bento » : chaque fonctionnalité est lisible immédiatement,
+              avec une carte phare par profil.
+            </p>
           </TweaksPanel>
         </React.Fragment>
       );
